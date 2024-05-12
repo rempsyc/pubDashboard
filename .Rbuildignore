@@ -1,0 +1,14 @@
+^pubmedDashboard\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^cran-comments\.md$
+^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+TODOS.md
+[.].txt$
+[.].rds$
+my_dashboard.html

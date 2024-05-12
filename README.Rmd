@@ -1,0 +1,106 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# pubmedDashboard: Creating PubMed Data Visualization Dashboards <img src='man/figures/logo.png' align="right" height="139" style="float:right; height:200px;" />
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rempsyc/pubmedDashboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rempsyc/pubmedDashboard/actions)
+[![r-universe](https://rempsyc.r-universe.dev/badges/pubmedDashboard)](https://rempsyc.r-universe.dev/ui/#package:pubmedDashboard)
+[![CRAN status](https://www.r-pkg.org/badges/version/pubmedDashboard)](https://CRAN.R-project.org/package=pubmedDashboard)
+[![Last-commit](https://img.shields.io/github/last-commit/rempsyc/pubmedDashboard)](https://github.com/rempsyc/pubmedDashboard/commits/main)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![sponsors](https://img.shields.io/github/sponsors/rempsyc)](https://github.com/sponsors/rempsyc)
+[![followers](https://img.shields.io/github/followers/rempsyc?style=social)](https://github.com/rempsyc?tab=followers)
+[![stars](https://img.shields.io/github/stars/rempsyc/pubmedDashboard?style=social)](https://github.com/rempsyc/pubmedDashboard/stargazers)
+<!-- badges: end -->
+
+The goal of `pubmedDashboard` is to facilitate the creation of pretty data visualization dashboards using the `flexdashboard` and `easyPubMed` packages.
+
+## Installation
+
+You can install the development version of `pubmedDashboard` like so:
+
+``` r
+# If `remotes` isn't installed, use `install.packages("remotes")`
+remotes::install_github("rempsyc/pubmedDashboard")
+```
+
+## Basic Examples
+
+`pubmedDashboard` helps parse the address to identify department and university of affiliation, as well as country.
+
+```{r, warning=FALSE}
+library(pubmedDashboard)
+
+address <- c(
+  "Department of Psychology, Cornell University, Ithaca, New York 14853-7601.",
+  "Dipartimento di Psicologia Generale, Università di Padova, Italy.",
+  "Universität Mannheim, Federal Republic of Germany.",
+  "Département de psychologie, Université du Québec à Montréal, Canada."
+)
+
+get_affiliation(address, "department")
+
+get_affiliation(address, "university")
+
+get_country(address)
+```
+
+## Mega Function
+
+One simple function allows to download the paper data from PubMed, convert the XLM data to a dataframe, extract affiliations, match universities to countries, identify countries and continents, and save the file to disk for later reuse.
+
+```{r example, warning=FALSE}
+save_process_pubmed_batch(
+  pubmed_query_string = "passion [Title/Abstract]",
+  journal = c("Journal of Personality and Social Psychology", "Health Psychology"),
+  year_low = 2023,
+  year_high = 2030
+)
+```
+
+## Table formatting functions
+
+Various functions allow to prepare DT tables to display specific information, such as journal paper percentages by continent or country.
+
+```{r read_bind_all, message=FALSE}
+data <- read_bind_all_data()
+```
+
+```{r table_continent, eval = FALSE}
+table_continent(data)
+```
+
+
+![](man/figures/table_journal_continent.png)
+
+## Figure formatting functions
+
+```{r waffle_country, warning=FALSE, message=FALSE}
+waffle_country(data)
+```
+
+
+## Example Dashboards
+
+The full source-code for these dashboards are available on the corresponding button at the top-right of each dashboard.
+
+### Neglected 95% Dashboard
+
+[![](man/figures/n95.png)](https://remi-theriault.com/dashboards/neglected_95)
+
+### Passion Dashboard
+
+[![](man/figures/passion.png)](https://remi-theriault.com/dashboards/passion)

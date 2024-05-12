@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+docs
+data/easyPubMed_data_01.txt
+man/data
+my_dashboard.html
+.quarto

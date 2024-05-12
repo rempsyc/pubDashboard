@@ -1,0 +1,48 @@
+Package: pubDashboard
+Title: Creating Publication Data Visualization Dashboards
+Version: 0.0.1
+Authors@R: 
+    person("Rémi", "Thériault", , "remi.theriault@mail.mcgill.ca", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-4315-6788"))
+Description: Package to facilitate the creation of data visualization dashboards 
+       through the flexdashboard and easyPubMed packages.
+License: GPL (>= 3)
+Imports: 
+    easyPubMed, 
+    rempsyc,
+    insight,
+    dplyr,
+    rlang,
+    purrr, 
+    stringr,
+    stringi,
+    countrycode,
+    Ecfun, 
+    lubridate,
+    tidyr
+Suggests: 
+    ggplot2,
+    RColorBrewer,
+    DT,
+    waffle (>= 1.0.1),
+    ggflags (>= 0.0.3),
+    plotly,
+    ggtext,
+    dygraphs,
+    xts,
+    rstudioapi,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends: 
+    R (>= 4.1.0)
+LazyData: true
+URL: https://github.com/rempsyc/pubDashboard,
+    https://rempsyc.github.io/pubDashboard/
+BugReports: https://github.com/rempsyc/pubDashboard/issues
+Remotes: 
+  jimjam-slam/ggflags,
+  hrbrmstr/waffle
