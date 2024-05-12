@@ -2,8 +2,8 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-05-12T19:26Z
+last_built: 2024-05-12T21:08Z
 urls:
-  reference: https://rempsyc.github.io/pubmedDashboard/reference
-  article: https://rempsyc.github.io/pubmedDashboard/articles
+  reference: https://rempsyc.github.io/pubDashboard/reference
+  article: https://rempsyc.github.io/pubDashboard/articles
 
