@@ -1,4 +1,4 @@
-#' @title Add affiliations to pubmedDashboard dataframe
+#' @title Add affiliations to pubDashboard dataframe
 #' @param data The dataframe on which to add affiliations (department and
 #' university).
 #' @importFrom dplyr %>%

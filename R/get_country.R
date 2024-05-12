@@ -42,7 +42,7 @@ get_country_internal <- function(address) {
   # Get country from countrycode
   country <- countrycode::countrycode(address, "country.name", "country.name", warn = TRUE)
   if (is.na(country)) { # Get country from countrycode list of countries
-    country <- Ecfun::rgrep(tools::toTitleCase(tolower(pubmedDashboard::countries)),
+    country <- Ecfun::rgrep(tools::toTitleCase(tolower(pubDashboard::countries)),
       tools::toTitleCase(tolower(address)),
       value = TRUE, fixed = TRUE
     )[1]
@@ -51,18 +51,18 @@ get_country_internal <- function(address) {
       .default = country
     )
     if (is.na(country)) { # Get country from countrycode list of US states
-      state <- Ecfun::rgrep(tools::toTitleCase(tolower(pubmedDashboard::us_states$state.name)),
+      state <- Ecfun::rgrep(tools::toTitleCase(tolower(pubDashboard::us_states$state.name)),
         tools::toTitleCase(tolower(address)),
         value = TRUE, fixed = TRUE
       )[1]
-      country <- ifelse(state %in% pubmedDashboard::us_states$state.name, "USA", NA)
+      country <- ifelse(state %in% pubDashboard::us_states$state.name, "USA", NA)
       if (is.na(country)) { # Get country from list of US states (abbreviations)
-        state <- Ecfun::rgrep(pubmedDashboard::us_states$state.abb, address, value = TRUE, fixed = TRUE)[1]
-        country <- ifelse(state %in% pubmedDashboard::us_states$state.abb, "USA", NA)
+        state <- Ecfun::rgrep(pubDashboard::us_states$state.abb, address, value = TRUE, fixed = TRUE)[1]
+        country <- ifelse(state %in% pubDashboard::us_states$state.abb, "USA", NA)
         if (is.na(country)) { # Get country from capital city name
-          state <- Ecfun::rgrep(pubmedDashboard::world_capitals$name, address, value = TRUE, fixed = TRUE)[1]
+          state <- Ecfun::rgrep(pubDashboard::world_capitals$name, address, value = TRUE, fixed = TRUE)[1]
           country <- ifelse(is.na(state), state,
-            pubmedDashboard::world_capitals[pubmedDashboard::world_capitals$name == state, "country.etc"]
+            pubDashboard::world_capitals[pubDashboard::world_capitals$name == state, "country.etc"]
           )
         }
       }

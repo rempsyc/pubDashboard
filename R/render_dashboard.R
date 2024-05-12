@@ -1,4 +1,4 @@
-#' @title Render complete pubmedDashboard dashboard
+#' @title Render complete pubDashboard dashboard
 #' @param file_name Desired file name.
 #' @param title Desired dashboard title.
 #' @param author Desired displayed dashboard author.
@@ -68,7 +68,7 @@ render_dashboard <- function(file_name = "dashboard",
                              tab_figure1 = FALSE,
                              tab_missing = TRUE) {
   insight::check_if_installed(c("rstudioapi", "rmarkdown"))
-  rmarkdown::render(system.file("dashboard.Rmd", package = "pubmedDashboard"),
+  rmarkdown::render(system.file("dashboard.Rmd", package = "pubDashboard"),
     output_dir = getwd(),
     output_file = file_name
   )

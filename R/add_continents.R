@@ -2,16 +2,18 @@
 #' @param data The processed dataframe of data
 #' @export
 clean_journals_continents <- function(data) {
+
+  data <- add_region(data)
+
   data <- data %>%
-    add_region() %>%
     dplyr::mutate(
       original_journal = .data$journal %in% pubDashboard::journal_field$journal[1:6],
-      # journal = clean_journal_names(.data$journal),
+      journal = clean_journal_names(.data$journal),
       field = pubDashboard::journal_field$field[match(
         toupper(.data$journal), toupper(pubDashboard::journal_field$journal)
       )],
       field = ifelse(is.na(.data$field), pubDashboard::journal_field$field[match(
-        toupper(.data$journal), toupper(pubDashboard::journal_field$journal_short))], .data$field),
+      toupper(.data$journal), toupper(pubDashboard::journal_field$journal_short))], .data$field),
       continent = factor(.data$continent, levels = continent_order())
     ) %>%
     dplyr::group_by(.data$journal) %>%
@@ -19,6 +21,7 @@ clean_journals_continents <- function(data) {
            year_range = paste0(.data$first_Year, "-", .data$last_year)) %>%
     dplyr::ungroup()
 }
+
 
 #' @noRd
 continent_order <- function(short = FALSE) {

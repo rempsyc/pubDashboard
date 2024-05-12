@@ -2,7 +2,7 @@
 % Please edit documentation in R/render_dashboard.R
 \name{render_dashboard}
 \alias{render_dashboard}
-\title{Render complete pubmedDashboard dashboard}
+\title{Render complete pubDashboard dashboard}
 \usage{
 render_dashboard(
   file_name = "dashboard",
@@ -89,7 +89,7 @@ and available in the data folder, this step is unnecessary.}
 \item{tab_missing}{Whether to render the "Missing" tab.}
 }
 \description{
-Render complete pubmedDashboard dashboard
+Render complete pubDashboard dashboard
 }
 \examples{
 \dontshow{

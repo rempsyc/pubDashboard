@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_bind_all_data.R
 \name{read_bind_all_data}
 \alias{read_bind_all_data}
-\title{Read local pubmedDashboard data files and bind them in a single dataframe}
+\title{Read local pubDashboard data files and bind them in a single dataframe}
 \usage{
 read_bind_all_data(data_folder = "data")
 }
@@ -10,5 +10,5 @@ read_bind_all_data(data_folder = "data")
 \item{data_folder}{The folder in which the data lives}
 }
 \description{
-Read local pubmedDashboard data files and bind them in a single dataframe
+Read local pubDashboard data files and bind them in a single dataframe
 }

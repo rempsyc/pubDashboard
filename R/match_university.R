@@ -25,7 +25,7 @@
 #' }
 #' @export
 match_university <- function(data) {
-  unis <- pubmedDashboard::universities
+  unis <- pubDashboard::universities
   unis$university <- stringi::stri_unescape_unicode(unis$university)
 
   data <- data %>%

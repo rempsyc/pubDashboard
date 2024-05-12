@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(pubmedDashboard)
+library(pubDashboard)
 
-test_check("pubmedDashboard")
+test_check("pubDashboard")

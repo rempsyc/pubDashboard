@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_affiliations.R
 \name{add_affiliation}
 \alias{add_affiliation}
-\title{Add affiliations to pubmedDashboard dataframe}
+\title{Add affiliations to pubDashboard dataframe}
 \usage{
 add_affiliation(data)
 }
@@ -11,7 +11,7 @@ add_affiliation(data)
 university).}
 }
 \description{
-Add affiliations to pubmedDashboard dataframe
+Add affiliations to pubDashboard dataframe
 }
 \examples{
 \dontshow{

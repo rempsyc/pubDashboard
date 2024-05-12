@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_region.R
 \name{add_region}
 \alias{add_region}
-\title{Add regions to pubmedDashboard dataframe}
+\title{Add regions to pubDashboard dataframe}
 \usage{
 add_region(data)
 }
@@ -10,7 +10,7 @@ add_region(data)
 \item{data}{The dataframe on which to add region.}
 }
 \description{
-Add regions to pubmedDashboard dataframe
+Add regions to pubDashboard dataframe
 }
 \examples{
 \dontshow{

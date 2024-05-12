@@ -13,7 +13,7 @@ output:
 
 ```{r packages}
 # Load packages
-library(pubmedDashboard)
+library(pubDashboard)
 library(dplyr)
 library(ggflags)
 

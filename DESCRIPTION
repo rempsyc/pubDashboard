@@ -8,6 +8,7 @@ Description: Package to facilitate the creation of data visualization dashboards
        through the flexdashboard and easyPubMed packages.
 License: GPL (>= 3)
 Imports: 
+    openalexR,
     easyPubMed, 
     rempsyc,
     insight,
