@@ -66,26 +66,26 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="pubmeddashboard-creating-pubmed-data-visualization-dashboards-">pubmedDashboard: Creating PubMed Data Visualization Dashboards <a class="anchor" aria-label="anchor" href="#pubmeddashboard-creating-pubmed-data-visualization-dashboards-"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="pubdashboard-creating-publication-data-visualization-dashboards-">pubDashboard: Creating Publication Data Visualization Dashboards <a class="anchor" aria-label="anchor" href="#pubdashboard-creating-publication-data-visualization-dashboards-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
-<p>The goal of <code>pubmedDashboard</code> is to facilitate the creation of pretty data visualization dashboards using the <code>flexdashboard</code> and <code>easyPubMed</code> packages.</p>
+<p>The goal of <code>pubDashboard</code> is to facilitate the creation of pretty data visualization dashboards using the <code>flexdashboard</code> and <code>easyPubMed</code> packages.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>pubmedDashboard</code> like so:</p>
+<p>You can install the development version of <code>pubDashboard</code> like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If `remotes` isn't installed, use `install.packages("remotes")`</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rempsyc/pubmedDashboard"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rempsyc/pubDashboard"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-examples">Basic Examples<a class="anchor" aria-label="anchor" href="#basic-examples"></a>
 </h2>
-<p><code>pubmedDashboard</code> helps parse the address to identify department and university of affiliation, as well as country.</p>
+<p><code>pubDashboard</code> helps parse the address to identify department and university of affiliation, as well as country.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pubmedDashboard</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rempsyc/pubDashboard" class="external-link">pubDashboard</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">address</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Department of Psychology, Cornell University, Ithaca, New York 14853-7601."</span>,</span>
@@ -195,14 +195,14 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/rempsyc/pubmedDashboard/actions" class="external-link"><img src="https://github.com/rempsyc/pubmedDashboard/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://rempsyc.r-universe.dev/ui/#package:pubmedDashboard" class="external-link"><img src="https://rempsyc.r-universe.dev/badges/pubmedDashboard" alt="r-universe"></a></li>
-<li><a href="https://CRAN.R-project.org/package=pubmedDashboard" class="external-link"><img src="https://www.r-pkg.org/badges/version/pubmedDashboard" alt="CRAN status"></a></li>
-<li><a href="https://github.com/rempsyc/pubmedDashboard/commits/main" class="external-link"><img src="https://img.shields.io/github/last-commit/rempsyc/pubmedDashboard" alt="Last-commit"></a></li>
+<li><a href="https://github.com/rempsyc/pubDashboard/actions" class="external-link"><img src="https://github.com/rempsyc/pubDashboard/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://rempsyc.r-universe.dev/ui/#package:pubDashboard" class="external-link"><img src="https://rempsyc.r-universe.dev/badges/pubDashboard" alt="r-universe"></a></li>
+<li><a href="https://CRAN.R-project.org/package=pubDashboard" class="external-link"><img src="https://www.r-pkg.org/badges/version/pubDashboard" alt="CRAN status"></a></li>
+<li><a href="https://github.com/rempsyc/pubDashboard/commits/main" class="external-link"><img src="https://img.shields.io/github/last-commit/rempsyc/pubDashboard" alt="Last-commit"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/sponsors/rempsyc" class="external-link"><img src="https://img.shields.io/github/sponsors/rempsyc" alt="sponsors"></a></li>
 <li><a href="https://github.com/rempsyc?tab=followers" class="external-link"><img src="https://img.shields.io/github/followers/rempsyc?style=social" alt="followers"></a></li>
-<li><a href="https://github.com/rempsyc/pubmedDashboard/stargazers" class="external-link"><img src="https://img.shields.io/github/stars/rempsyc/pubmedDashboard?style=social" alt="stars"></a></li>
+<li><a href="https://github.com/rempsyc/pubDashboard/stargazers" class="external-link"><img src="https://img.shields.io/github/stars/rempsyc/pubDashboard?style=social" alt="stars"></a></li>
 </ul>
 </div>
 
