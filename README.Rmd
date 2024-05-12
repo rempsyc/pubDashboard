@@ -13,36 +13,36 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pubmedDashboard: Creating PubMed Data Visualization Dashboards <img src='man/figures/logo.png' align="right" height="139" style="float:right; height:200px;" />
+# pubDashboard: Creating Publication Data Visualization Dashboards <img src='man/figures/logo.png' align="right" height="139" style="float:right; height:200px;" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/rempsyc/pubmedDashboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rempsyc/pubmedDashboard/actions)
-[![r-universe](https://rempsyc.r-universe.dev/badges/pubmedDashboard)](https://rempsyc.r-universe.dev/ui/#package:pubmedDashboard)
-[![CRAN status](https://www.r-pkg.org/badges/version/pubmedDashboard)](https://CRAN.R-project.org/package=pubmedDashboard)
-[![Last-commit](https://img.shields.io/github/last-commit/rempsyc/pubmedDashboard)](https://github.com/rempsyc/pubmedDashboard/commits/main)
+[![R-CMD-check](https://github.com/rempsyc/pubDashboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rempsyc/pubDashboard/actions)
+[![r-universe](https://rempsyc.r-universe.dev/badges/pubDashboard)](https://rempsyc.r-universe.dev/ui/#package:pubDashboard)
+[![CRAN status](https://www.r-pkg.org/badges/version/pubDashboard)](https://CRAN.R-project.org/package=pubDashboard)
+[![Last-commit](https://img.shields.io/github/last-commit/rempsyc/pubDashboard)](https://github.com/rempsyc/pubDashboard/commits/main)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![sponsors](https://img.shields.io/github/sponsors/rempsyc)](https://github.com/sponsors/rempsyc)
 [![followers](https://img.shields.io/github/followers/rempsyc?style=social)](https://github.com/rempsyc?tab=followers)
-[![stars](https://img.shields.io/github/stars/rempsyc/pubmedDashboard?style=social)](https://github.com/rempsyc/pubmedDashboard/stargazers)
+[![stars](https://img.shields.io/github/stars/rempsyc/pubDashboard?style=social)](https://github.com/rempsyc/pubDashboard/stargazers)
 <!-- badges: end -->
 
-The goal of `pubmedDashboard` is to facilitate the creation of pretty data visualization dashboards using the `flexdashboard` and `easyPubMed` packages.
+The goal of `pubDashboard` is to facilitate the creation of pretty data visualization dashboards using the `flexdashboard` and `easyPubMed` packages.
 
 ## Installation
 
-You can install the development version of `pubmedDashboard` like so:
+You can install the development version of `pubDashboard` like so:
 
 ``` r
 # If `remotes` isn't installed, use `install.packages("remotes")`
-remotes::install_github("rempsyc/pubmedDashboard")
+remotes::install_github("rempsyc/pubDashboard")
 ```
 
 ## Basic Examples
 
-`pubmedDashboard` helps parse the address to identify department and university of affiliation, as well as country.
+`pubDashboard` helps parse the address to identify department and university of affiliation, as well as country.
 
 ```{r, warning=FALSE}
-library(pubmedDashboard)
+library(pubDashboard)
 
 address <- c(
   "Department of Psychology, Cornell University, Ithaca, New York 14853-7601.",
