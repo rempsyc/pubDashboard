@@ -3,34 +3,18 @@
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' d.fls <- batch_pubmed_download2(
-#'   pubmed_query_string = paste(
-#'     "passion [Title/Abstract]",
-#'     "AND Dualistic Model of Passion [Text Word]",
-#'     "AND ('2023/01/01' [Date - Publication] : '2023/12/31' [Date - Publication])"
-#'   ),
-#'   year_low = 2023,
-#'   year_high = 2023
-#' )
-#' articles.df <- all_articles_to_df(d.fls)
-#' articles.df2 <- add_affiliation(articles.df)
-#' articles.df3 <- match_university(articles.df2)
-#' articles.df4 <- add_region(articles.df3)
-#' articles.df4[2, ]
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' setwd(.old_wd)
+#' x <- fetch_openalex_pubs(journal = "Collabra", pages = 1, per_page = 1)
+#' x <- add_region(x)
+#' names(x)
 #' }
 #' @export
 add_region <- function(data) {
   data <- data %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(country_code = extract_first_author(.data$author),
+    dplyr::mutate(country_code = extract_author_info(.data$author, object = "country"),
+                  address = extract_author_info(.data$author, object = "address"),
+                  country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
                   region = countrycode::countrycode(
                     .data$country_code, "genc2c", "un.regionsub.name"
                   ),
@@ -44,13 +28,19 @@ add_region <- function(data) {
   data
 }
 
-#' @noRd
-extract_first_author <- function(author_list) {
+extract_author_info <- function(author_list, object = "country", author_position = "first") {
+  # extract_author_info(author_list = author_list, object = "country")
+  # extract_author_info(author_list = author_list, object = "address")
+  author_list <- as.data.frame(author_list)
+  if (object == "country") {
+    object_name <- "institution_country_code"
+  } else if (object == "address") {
+    object_name <- "au_affiliation_raw"
+  }
   if("author_position" %in% names(author_list)) {
     out <- author_list %>%
-      as.data.frame() %>%
-      dplyr::filter(author_position == "first") %>%
-      dplyr::pull(institution_country_code)
+      dplyr::filter(author_position == !!author_position) %>%
+      dplyr::pull(object_name)
   } else {
     out <- NA
   }

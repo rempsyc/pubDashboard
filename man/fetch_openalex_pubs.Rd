@@ -4,10 +4,12 @@
 \alias{fetch_openalex_pubs}
 \title{Downloads relevant publication data using \code{openalexR}}
 \usage{
-fetch_openalex_pubs(journal = NULL, ...)
+fetch_openalex_pubs(journal_name = NULL, journal_id = NULL, ...)
 }
 \arguments{
-\item{journal}{The list of desired journals.}
+\item{journal_name}{The list of desired journals (by journal name).}
+
+\item{journal_id}{The list of desired journals (by OpenAlex ID).}
 
 \item{...}{Arguments passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}}}
 }
@@ -30,7 +32,10 @@ options(openalexR.apikey = "EXAMPLE_APIKEY")"
 \examples{
 \dontrun{
 
-x <- fetch_openalex_pubs(journal = "Collabra", pages = 1, per_page = 1)
+x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
+names(x)
+# Same as:
+x <- fetch_openalex_pubs(journal_id = "S4210175756", pages = 1, per_page = 1)
 names(x)
 }
 }
