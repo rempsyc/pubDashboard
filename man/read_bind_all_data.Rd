@@ -4,10 +4,12 @@
 \alias{read_bind_all_data}
 \title{Read local pubDashboard data files and bind them in a single dataframe}
 \usage{
-read_bind_all_data(data_folder = "data")
+read_bind_all_data(data_folder = "data", check_duplicate = FALSE)
 }
 \arguments{
 \item{data_folder}{The folder in which the data lives}
+
+\item{check_duplicate}{whether to check article ids with \link[rempsyc:best_duplicate]{rempsyc::best_duplicate}}
 }
 \description{
 Read local pubDashboard data files and bind them in a single dataframe

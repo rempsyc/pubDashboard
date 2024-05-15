@@ -11,6 +11,7 @@ psychology <- tibble::tribble(
   # Above journals are the original
   "Journal of Experimental Social Psychology", "JESP", "https://openalex.org/S12410666",
   "Collabra. Psychology", "Collabra", "https://openalex.org/S4210175756",
+  "Collabra", "Collabra", "https://openalex.org/S2737007392",
   "Journal of Experimental Psychology. General", "JEPG", "https://openalex.org/S62013203",
   "Journal of Applied Psychology", "JApP", "https://openalex.org/S166002381",
   "Psychological Methods", "PM", "https://openalex.org/S45419345",
@@ -65,7 +66,7 @@ economics <- tibble::tribble(
 general <- tibble::tribble(
   ~ journal, ~ journal_abbr, ~ openalex_id,
   "Proceedings of the National Academy of Sciences of the United States of America", "PNAS", "https://openalex.org/S125754415",
-  "Science", "WDP", "https://openalex.org/S3880285",
+  "Science", "Science", "https://openalex.org/S3880285",
   "Nature", "Nature", "https://openalex.org/S137773608",
   "PloS One", "PloS One", "https://openalex.org/S202381698"
 )

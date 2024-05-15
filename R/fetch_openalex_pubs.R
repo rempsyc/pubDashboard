@@ -37,6 +37,10 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
     )
   }
 
+  if (is.null(sources)) {
+    stop("Journal name may be incorrect.")
+  }
+
   sources2 <- sources %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
@@ -48,9 +52,10 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
     dplyr::ungroup() %>%
     dplyr::select("journal", "jabbrv", "alt_title")
 
-  if (is.null(sources)) {
-    stop("Journal name may be incorrect.")
-  }
+  sources2 <- sources2 %>%
+    dplyr::mutate(journal = dplyr::if_else(
+      .data$journal == "Collabra", "Collabra. Psychology", .data$journal)) %>%
+    left_join(journal_field, by = "journal")
 
   data <- openalexR::oa_fetch(
     entity = "works",
@@ -70,5 +75,6 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
 
   data
 }
+
 
 
