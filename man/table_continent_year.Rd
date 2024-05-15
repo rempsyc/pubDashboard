@@ -16,25 +16,9 @@ instead of a regular dataframe (defaults to TRUE).}
 Generate table of journal paper percentages, by continent and year
 }
 \examples{
-\dontshow{
-.old_wd <- setwd(tempdir())
-}
 \dontrun{
-pubmed_query_string <- paste(
-  "passion [Title/Abstract]",
-  "AND Dualistic Model of Passion [Text Word]"
-)
-
-save_process_pubmed_batch(
-  pubmed_query_string,
-  year_low = 2022,
-  year_high = 2023
-)
-data <- read_bind_all_data()
+data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+data <- clean_journals_continents(data)
 table_continent_year(data)
-}
-\dontshow{
-unlink("easyPubMed_data_01.txt")
-setwd(.old_wd)
 }
 }

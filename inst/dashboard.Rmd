@@ -19,29 +19,12 @@ library(ggflags)
 
 ```
 
-```{r API_TOKEN_PUBMED, eval=exists("api_key"), include=FALSE}
-if(Sys.info()["sysname"] == "Windows") {
-  API_TOKEN_PUBMED <- keyring::key_get("pubmed", "rempsyc")  
-}
-
-check_pubmed_api_token(API_TOKEN_PUBMED)
-
-```
-
 ```{r save_process_pubmed_batch, results='hide', eval=query_pubmed}
-save_process_pubmed_batch(
-  pubmed_query_string = pubmed_query_string,
-  journal = journal,
-  year_low = year_low,
-  year_high = year_high,
-  month_low = month_low,
-  month_high = month_high,
-  day_low = day_low,
-  day_high = day_high,
-  data_folder = data_folder,
-  batch_size = batch_size,
-  api_key = api_key,
-  verbose = verbose)
+data <- fetch_openalex_pubs(journal_name = journal_name, 
+                            journal_id = journal_id,
+                            pages = 1, per_page = 1,
+                            ...)
+saveRDS(data, paste0(data_folder, "/data_new.rds"))
 
 ```
 

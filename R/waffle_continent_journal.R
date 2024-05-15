@@ -6,31 +6,15 @@
 #'  to fit the entire plot, otherwise some journal names can be quite long and
 #'  accordingly be cropped.
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' pubmed_query_string <- paste(
-#'   "passion [Title/Abstract]",
-#'   "AND Dualistic Model of Passion [Text Word]"
-#' )
-#'
-#' save_process_pubmed_batch(
-#'   pubmed_query_string,
-#'   year_low = 2023,
-#'   year_high = 2023
-#' )
-#' data <- read_bind_all_data()
+#' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+#' data <- clean_journals_continents(data)
 #' waffle_continent_journal(data)
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' setwd(.old_wd)
 #' }
 #' @importFrom rlang .data
 #' @export
 
-waffle_continent_journal <- function(data, citation, citation_size = NULL, journal_abbreviation = TRUE) {
+waffle_continent_journal <- function(data, citation = NULL, citation_size = NULL, journal_abbreviation = TRUE) {
   insight::check_if_installed(c("waffle", "ggplot2", "RColorBrewer"))
   if (isTRUE(journal_abbreviation)) {
     data <- data %>%

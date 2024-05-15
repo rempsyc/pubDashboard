@@ -5,30 +5,18 @@
 #' @param plotly Logical, whether to use plotly for dynamic data visualization.
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' pubmed_query_string <- paste(
-#'   "Developmental Psychology [Journal]",
-#'   "OR Journal of Personality and Social Psychology [Journal]",
-#'   "OR Journal of Abnormal Psychology [Journal]",
-#'   "OR Journal of Family Psychology [Journal]",
-#'   "OR Health Psychology [Journal]",
-#'   "OR Journal of Educational Psychology [Journal]"
+#' journals <- c("Developmental Psychology",
+#'              "Journal of Personality and Social Psychology",
+#'              "Journal of Abnormal Psychology",
+#'              "Journal of Family Psychology",
+#'              "Health Psychology",
+#'              "Journal of Educational Psychology"
 #' )
 #'
-#' save_process_pubmed_batch(
-#'   pubmed_query_string,
-#'   year_low = 2023,
-#'   year_high = 2023
-#' )
-#' data <- read_bind_all_data()
+#' data <- fetch_openalex_pubs(journal_name = journals, pages = 10)
+#' data <- clean_journals_continents(data)
 #' scatter_figure1(data)
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' setwd(.old_wd)
 #' }
 #' @importFrom rlang .data
 #' @export

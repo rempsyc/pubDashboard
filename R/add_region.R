@@ -4,7 +4,7 @@
 #' @importFrom rlang .data
 #' @examples
 #' \dontrun{
-#' x <- fetch_openalex_pubs(journal = "Collabra", pages = 1, per_page = 1)
+#' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
 #' x <- add_region(x)
 #' names(x)
 #' }
@@ -12,8 +12,8 @@
 add_region <- function(data) {
   data <- data %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(country_code = extract_author_info(.data$author, object = "country"),
-                  address = extract_author_info(.data$author, object = "address"),
+    dplyr::mutate(address = extract_author_info(.data$author, object = "address"),
+                  country_code = extract_author_info(.data$author, object = "country"),
                   country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
                   region = countrycode::countrycode(
                     .data$country_code, "genc2c", "un.regionsub.name"

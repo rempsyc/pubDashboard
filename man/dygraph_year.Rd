@@ -15,27 +15,10 @@ dygraph_year(data, level = "continent")
 Generate a dygraph of journal paper percentages, by country and year
 }
 \examples{
-\dontshow{
-.old_wd <- setwd(tempdir())
-}
 \dontrun{
-pubmed_query_string <- paste(
-  "passion [Title/Abstract]",
-  "AND Dualistic Model of Passion [Text Word]"
-)
-
-save_process_pubmed_batch(
-  pubmed_query_string,
-  year_low = 2021,
-  year_high = 2023
-)
-data <- read_bind_all_data()
+data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+data <- clean_journals_continents(data)
 dygraph_year(data)
 dygraph_year(data, "country")
-}
-\dontshow{
-unlink("easyPubMed_data_01.txt")
-unlink("articles_2021_2023.rds")
-setwd(.old_wd)
 }
 }

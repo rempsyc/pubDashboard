@@ -3,31 +3,14 @@
 #' @param citation Optionally, a citation to add as a footer.
 #' @param citation_size Font size of the citation.
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' pubmed_query_string <- paste(
-#'   "passion [Title/Abstract]",
-#'   "AND Dualistic Model of Passion [Text Word]"
-#' )
-#'
-#' save_process_pubmed_batch(
-#'   pubmed_query_string,
-#'   year_low = 2023,
-#'   year_high = 2023
-#' )
-#' data <- read_bind_all_data()
+#' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+#' data <- clean_journals_continents(data)
 #' waffle_country(data)
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' unlink("articles_2023_2023.rds")
-#' setwd(.old_wd)
 #' }
 #' @importFrom rlang .data
 #' @export
-waffle_country <- function(data, citation, citation_size = NULL) {
+waffle_country <- function(data, citation = NULL, citation_size = NULL) {
   insight::check_if_installed(c("ggflags", "ggplot2", "RColorBrewer"))
   layer <- ggplot2::layer
   . <- NULL

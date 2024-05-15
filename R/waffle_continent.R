@@ -3,26 +3,10 @@
 #' @param citation Optionally, a citation to add as a footer.
 #' @param citation_size Font size of the citation.
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' pubmed_query_string <- paste(
-#'   "passion [Title/Abstract]",
-#'   "AND Dualistic Model of Passion [Text Word]"
-#' )
-#'
-#' save_process_pubmed_batch(
-#'   pubmed_query_string,
-#'   year_low = 2023,
-#'   year_high = 2023
-#' )
-#' data <- read_bind_all_data()
+#' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+#' data <- clean_journals_continents(data)
 #' waffle_continent(data)
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' setwd(.old_wd)
 #' }
 #' @importFrom rlang .data
 #' @export

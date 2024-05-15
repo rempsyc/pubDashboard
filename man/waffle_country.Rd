@@ -4,7 +4,7 @@
 \alias{waffle_country}
 \title{Generate a waffle plot made of country flags}
 \usage{
-waffle_country(data, citation, citation_size = NULL)
+waffle_country(data, citation = NULL, citation_size = NULL)
 }
 \arguments{
 \item{data}{The processed dataframe of data}
@@ -17,26 +17,9 @@ waffle_country(data, citation, citation_size = NULL)
 Generate a waffle plot made of country flags
 }
 \examples{
-\dontshow{
-.old_wd <- setwd(tempdir())
-}
 \dontrun{
-pubmed_query_string <- paste(
-  "passion [Title/Abstract]",
-  "AND Dualistic Model of Passion [Text Word]"
-)
-
-save_process_pubmed_batch(
-  pubmed_query_string,
-  year_low = 2023,
-  year_high = 2023
-)
-data <- read_bind_all_data()
+data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+data <- clean_journals_continents(data)
 waffle_country(data)
-}
-\dontshow{
-unlink("easyPubMed_data_01.txt")
-unlink("articles_2023_2023.rds")
-setwd(.old_wd)
 }
 }

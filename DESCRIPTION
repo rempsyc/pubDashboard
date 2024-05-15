@@ -9,16 +9,12 @@ Description: Package to facilitate the creation of data visualization dashboards
 License: GPL (>= 3)
 Imports: 
     openalexR,
-    easyPubMed, 
     rempsyc,
     insight,
     dplyr,
     rlang,
-    purrr, 
     stringr,
-    stringi,
     countrycode,
-    Ecfun, 
     lubridate,
     tidyr
 Suggests: 

@@ -55,7 +55,9 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
   sources2 <- sources2 %>%
     dplyr::mutate(journal = dplyr::if_else(
       .data$journal == "Collabra", "Collabra. Psychology", .data$journal)) %>%
-    left_join(journal_field, by = "journal")
+    dplyr::left_join(pubDashboard::journal_field, by = "journal") %>%
+    dplyr::mutate(jabbrv = .data$journal_abbr) %>%
+    dplyr::select(-"journal_abbr")
 
   data <- openalexR::oa_fetch(
     entity = "works",
@@ -65,13 +67,17 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
   )
 
   data <- data %>%
-    dplyr::rename(journal = so,
-                  date = publication_date) %>%
-    dplyr::mutate(date = lubridate::as_date(date),
-                  year = lubridate::year(date))
+    dplyr::rename(journal = "so",
+                  date = "publication_date") %>%
+    dplyr::mutate(date = lubridate::as_date(.data$date),
+                  year = lubridate::year(.data$date))
 
 
-  data <- dplyr::left_join(data, sources2, by = "journal")
+  data <- data %>%
+    dplyr::left_join(sources2, by = "journal", relationship = "many-to-many") %>%
+    dplyr::select("title", "author", "date", "year", "id",
+                  "doi", "cited_by_count", "concepts", "journal", "jabbrv", "alt_title",
+                  "original_journal", "field")
 
   data
 }

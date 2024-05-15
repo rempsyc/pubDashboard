@@ -8,19 +8,9 @@ render_dashboard(
   file_name = "dashboard",
   title = "title",
   author = "author",
-  pubmed_query_string = "",
-  journal = NULL,
-  year_low = 2023,
-  year_high = 2023,
-  month_low = "01",
-  month_high = 12,
-  day_low = "01",
-  day_high = 31,
+  journal_name = NULL,
+  journal_id = NULL,
   data_folder = "data",
-  batch_size = 5000,
-  api_key = NULL,
-  verbose = TRUE,
-  query_pubmed = FALSE,
   tab_continent = TRUE,
   tab_continent_year = TRUE,
   tab_continent_journal = TRUE,
@@ -30,7 +20,8 @@ render_dashboard(
   tab_economics = FALSE,
   tab_general = FALSE,
   tab_figure1 = FALSE,
-  tab_missing = TRUE
+  tab_missing = TRUE,
+  ...
 )
 }
 \arguments{
@@ -40,33 +31,11 @@ render_dashboard(
 
 \item{author}{Desired displayed dashboard author.}
 
-\item{pubmed_query_string}{The PubMed query string.}
+\item{journal_name}{The list of desired journals (by journal name).}
 
-\item{journal}{The list of desired journals.}
+\item{journal_id}{The list of desired journals (by OpenAlex ID).}
 
-\item{year_low}{The year the data should start.}
-
-\item{year_high}{The year the data should end.}
-
-\item{month_low}{The year the data should start.}
-
-\item{month_high}{The year the data should end.}
-
-\item{day_low}{The year the data should start.}
-
-\item{day_high}{The year the data should end.}
-
-\item{data_folder}{Where to save the data.}
-
-\item{batch_size}{The download batch size.}
-
-\item{api_key}{The api key for faster processing (optional).}
-
-\item{verbose}{Whether to include progress messages.}
-
-\item{query_pubmed}{Whether to query pubmed. This must be set to TRUE
-explicitely to avoid long operations. When the data is already downloaded
-and available in the data folder, this step is unnecessary.}
+\item{data_folder}{Folder where to save the data.}
 
 \item{tab_continent}{Whether to render the "Continent" tab.}
 
@@ -87,6 +56,8 @@ and available in the data folder, this step is unnecessary.}
 \item{tab_figure1}{Whether to render the "Figure 1" tab.}
 
 \item{tab_missing}{Whether to render the "Missing" tab.}
+
+\item{...}{Arguments passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}}}
 }
 \description{
 Render complete pubDashboard dashboard
@@ -100,16 +71,13 @@ render_dashboard(
   file_name = "my_dashboard",
   title = "Wonderful Dashboard",
   author = "Rémi Thériault",
-  pubmed_query_string = "passion [Title/Abstract]",
-  journal = c("Journal of Personality and Social Psychology", "Health Psychology"),
-  year_low = 2023,
-  year_high = 2023,
-  query_pubmed = TRUE,
+  journal_name = c("Journal of Personality and Social Psychology", "Health Psychology"),
+  from_publication_date = "2024-01-01",
   tab_figure1 = TRUE
 )
 }
 \dontshow{
-unlink("easyPubMed_data_01.txt")
+unlink("data/data_new.rds")
 setwd(.old_wd)
 }
 }

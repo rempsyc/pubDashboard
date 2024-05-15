@@ -2,11 +2,10 @@
 #' @param data The processed dataframe of data
 #' @export
 clean_journals_continents <- function(data) {
-  data <- data %>%
+  data %>%
     add_region() %>%
     dplyr::mutate(
       original_journal = .data$journal %in% pubDashboard::journal_field$journal[1:6],
-      # journal = clean_journal_names(.data$journal),
       field = pubDashboard::journal_field$field[match(
         toupper(.data$journal), toupper(pubDashboard::journal_field$journal)
       )],
@@ -30,25 +29,15 @@ continent_order <- function(short = FALSE) {
   x
 }
 
-#' @noRd
-clean_journal_names <- function(journal) {
-  x <- gsub("&amp;", "&", journal, fixed = TRUE)
-  x <- gsub(" of the United States of America", "", x, fixed = TRUE)
-  x <- gsub(":.*", "", x)
-  x <- gsub("[(].*", "", x)
-  x <- tools::toTitleCase(x)
-  trimws(x)
-}
-
 #' @title Detect missing journals
 #' @param data The processed dataframe of data
 #' @export
 detect_missing_journals <- function(data) {
   data.frame(journal = pubDashboard::journal_field$journal_short) %>%
     dplyr::mutate(found = toupper(pubDashboard::journal_field$journal_short) %in%
-                    toupper(clean_journal_names(unique(data$journal))),
+                    toupper(unique(data$journal)),
                   found = ifelse(.data$found == FALSE, toupper(pubDashboard::journal_field$journal_short) %in%
-                                   toupper(clean_journal_names(unique(data$journal))), .data$found)) %>%
+                                   toupper(unique(data$journal)), .data$found)) %>%
     dplyr::arrange(.data$found)
 }
 

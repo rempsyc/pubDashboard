@@ -14,7 +14,7 @@ Add regions to pubDashboard dataframe
 }
 \examples{
 \dontrun{
-x <- fetch_openalex_pubs(journal = "Collabra", pages = 1, per_page = 1)
+x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
 x <- add_region(x)
 names(x)
 }

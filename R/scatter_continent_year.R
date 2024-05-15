@@ -6,26 +6,10 @@
 #' @param citation_size Font size of the citation.
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
-#' \dontshow{
-#' .old_wd <- setwd(tempdir())
-#' }
 #' \dontrun{
-#' pubmed_query_string <- paste(
-#'   "passion [Title/Abstract]",
-#'   "AND Dualistic Model of Passion [Text Word]"
-#' )
-#'
-#' save_process_pubmed_batch(
-#'   pubmed_query_string,
-#'   year_low = 2022,
-#'   year_high = 2023
-#' )
-#' data <- read_bind_all_data()
-#' suppressWarnings(scatter_continent_year(data))
-#' }
-#' \dontshow{
-#' unlink("easyPubMed_data_01.txt")
-#' setwd(.old_wd)
+#' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+#' data <- clean_journals_continents(data)
+#' scatter_continent_year(data)
 #' }
 #' @importFrom rlang .data
 #' @export
@@ -51,7 +35,7 @@ scatter_continent_year <- function(data,
     ) %>%
     dplyr::mutate(dplyr::across(2:6, ~ .x * 100)) %>%
     dplyr::arrange(.data$year) %>%
-    tidyr::pivot_longer(-.data$year, names_to = "continent", values_to = "papers_percentage") %>%
+    tidyr::pivot_longer(-"year", names_to = "continent", values_to = "papers_percentage") %>%
     dplyr::mutate(
       year = as.numeric(.data$year), continent = factor(
         .data$continent,
@@ -78,7 +62,7 @@ scatter_continent_year <- function(data,
 
   if (isTRUE(plotly)) {
     insight::check_if_installed("plotly")
-    p <- plotly::ggplotly(tooltip = c("x", "y"))
+    p <- plotly::ggplotly(p = p, tooltip = c("x", "y"))
     if (!is.null(citation)) {
       p <- plotly_citation(p, citation, citation_size = citation_size)
     }
