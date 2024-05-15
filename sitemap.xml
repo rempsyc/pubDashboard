@@ -13,28 +13,10 @@
     <loc>https://rempsyc.github.io/pubDashboard/index.html</loc>
   </url>
   <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/add_affiliation.html</loc>
-  </url>
-  <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/add_region.html</loc>
   </url>
   <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/all_articles_to_df.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/article_to_df2.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/batch_pubmed_download2.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/check_pubmed_api_token.html</loc>
-  </url>
-  <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/clean_journals_continents.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/convert_hex_to_char.html</loc>
   </url>
   <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/countries.html</loc>
@@ -46,16 +28,7 @@
     <loc>https://rempsyc.github.io/pubDashboard/reference/dygraph_year.html</loc>
   </url>
   <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/extract_split_address.html</loc>
-  </url>
-  <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/fetch_openalex_pubs.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/get_affiliation.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/get_country.html</loc>
   </url>
   <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/index.html</loc>
@@ -64,19 +37,10 @@
     <loc>https://rempsyc.github.io/pubDashboard/reference/journal_field.html</loc>
   </url>
   <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/match_university.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/partial_vlookup.html</loc>
-  </url>
-  <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/read_bind_all_data.html</loc>
   </url>
   <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/render_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/save_process_pubmed_batch.html</loc>
   </url>
   <url>
     <loc>https://rempsyc.github.io/pubDashboard/reference/scatter_continent_year.html</loc>

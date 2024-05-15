@@ -94,15 +94,15 @@
 <span>  <span class="st">"Département de psychologie, Université du Québec à Montréal, Canada."</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/get_affiliation.html">get_affiliation</a></span><span class="op">(</span><span class="va">address</span>, <span class="st">"department"</span><span class="op">)</span></span>
+<span><span class="fu">get_affiliation</span><span class="op">(</span><span class="va">address</span>, <span class="st">"department"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Department of Psychology"            "Dipartimento di Psicologia Generale"</span></span>
 <span><span class="co">#&gt; [3] NA                                    "Département de psychologie"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/get_affiliation.html">get_affiliation</a></span><span class="op">(</span><span class="va">address</span>, <span class="st">"university"</span><span class="op">)</span></span>
+<span><span class="fu">get_affiliation</span><span class="op">(</span><span class="va">address</span>, <span class="st">"university"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Cornell University"              "Università di Padova"           </span></span>
 <span><span class="co">#&gt; [3] "Universität Mannheim"            "Université du Québec à Montréal"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/get_country.html">get_country</a></span><span class="op">(</span><span class="va">address</span><span class="op">)</span></span>
+<span><span class="fu">get_country</span><span class="op">(</span><span class="va">address</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "United States" "Italy"         "Germany"       "Canada"</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -110,7 +110,7 @@
 </h2>
 <p>One simple function allows to download the paper data from PubMed, convert the XLM data to a dataframe, extract affiliations, match universities to countries, identify countries and continents, and save the file to disk for later reuse.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/save_process_pubmed_batch.html">save_process_pubmed_batch</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">save_process_pubmed_batch</span><span class="op">(</span></span>
 <span>  pubmed_query_string <span class="op">=</span> <span class="st">"passion [Title/Abstract]"</span>,</span>
 <span>  journal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Journal of Personality and Social Psychology"</span>, <span class="st">"Health Psychology"</span><span class="op">)</span>,</span>
 <span>  year_low <span class="op">=</span> <span class="fl">2023</span>,</span>
