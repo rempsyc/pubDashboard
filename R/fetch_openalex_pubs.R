@@ -16,6 +16,7 @@
 #'  dataframe with the [pubDashboard::clean_journals_continents] function.
 #'  It is set to FALSE by default because on large datasets it can be
 #'  very time consuming.
+#' @param progress_bar Logical, whether to print a progress bar.
 #' @param ... Arguments passed to [openalexR::oa_fetch()]
 #' @examples
 #' \dontrun{

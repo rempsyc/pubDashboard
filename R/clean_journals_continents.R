@@ -6,7 +6,7 @@ clean_journals_continents <- function(data, progress_bar = FALSE) {
   data %>%
     add_region(progress_bar = progress_bar) %>%
     dplyr::mutate(
-      journal = clean_journal_names(journal),
+      journal = clean_journal_names(.data$journal),
       original_journal = .data$journal %in% pubDashboard::journal_field$journal[1:6],
       field = pubDashboard::journal_field$field[match(
         toupper(.data$journal), toupper(pubDashboard::journal_field$journal)

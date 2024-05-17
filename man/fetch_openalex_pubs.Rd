@@ -22,6 +22,8 @@ dataframe with the \link{clean_journals_continents} function.
 It is set to FALSE by default because on large datasets it can be
 very time consuming.}
 
+\item{progress_bar}{Logical, whether to print a progress bar.}
+
 \item{...}{Arguments passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}}}
 }
 \description{

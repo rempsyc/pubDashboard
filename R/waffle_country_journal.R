@@ -45,7 +45,7 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       country = as.factor(.data$country)
     ) %>%
     dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers)) %>%
-    na.omit()
+    stats::na.omit()
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(data$continent)), "Set2"

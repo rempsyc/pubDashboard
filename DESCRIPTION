@@ -17,7 +17,7 @@ Imports:
     countrycode,
     lubridate,
     tidyr,
-    progressr,
+    progress,
 Suggests: 
     ggplot2,
     RColorBrewer,
