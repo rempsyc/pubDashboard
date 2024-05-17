@@ -10,13 +10,15 @@
 #' options(openalexR.mailto = "example@email.com")
 #' options(openalexR.apikey = "EXAMPLE_APIKEY")"
 #' ```
-#'
 #' @param journal_name The list of desired journals (by journal name).
 #' @param journal_id The list of desired journals (by OpenAlex ID).
+#' @param clean_journals_continents Logical, whether to also process the
+#'  dataframe with the [pubDashboard::clean_journals_continents] function.
+#'  It is set to FALSE by default because on large datasets it can be
+#'  very time consuming.
 #' @param ... Arguments passed to [openalexR::oa_fetch()]
 #' @examples
 #' \dontrun{
-#'
 #' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
 #' names(x)
 #' # Same as:
@@ -24,7 +26,11 @@
 #' names(x)
 #' }
 #' @export
-fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
+fetch_openalex_pubs <- function(journal_name = NULL,
+                                journal_id = NULL,
+                                clean_journals_continents = FALSE,
+                                progress_bar = FALSE,
+                                ...) {
   if (is.null(journal_id)) {
     sources <- openalexR::oa_fetch(
       entity = "sources",
@@ -63,6 +69,9 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
     entity = "works",
     journal = sources$id,
     abstract = FALSE,
+    options = list(select = c(
+      "title", "id", "doi", "cited_by_count", "concepts",
+      "authorships", "publication_date", "primary_location")),
     ...
   )
 
@@ -72,15 +81,15 @@ fetch_openalex_pubs <- function(journal_name = NULL, journal_id = NULL, ...) {
     dplyr::mutate(date = lubridate::as_date(.data$date),
                   year = lubridate::year(.data$date))
 
-
   data <- data %>%
     dplyr::left_join(sources2, by = "journal", relationship = "many-to-many") %>%
     dplyr::select("title", "author", "date", "year", "id",
                   "doi", "cited_by_count", "concepts", "journal", "jabbrv", "alt_title",
                   "original_journal", "field")
 
+  if (clean_journals_continents) {
+    data <- clean_journals_continents(data, progress_bar = progress_bar)
+  }
+
   data
 }
-
-
-

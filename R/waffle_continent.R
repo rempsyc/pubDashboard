@@ -12,7 +12,7 @@
 #' @export
 
 waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
-  insight::check_if_installed(c("waffle", "ggplot2"))
+  insight::check_if_installed(c("waffle", "ggplot2", "RColorBrewer"))
   x <- data %>%
     dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
     dplyr::filter(!is.na(.data$continent)) %>%
@@ -33,8 +33,20 @@ waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
     dplyr::select(-c("nrow", "Papers")) %>%
     dplyr::rename_with(stringr::str_to_title, .cols = 1)
 
-  p <- waffle::waffle(x, legend_pos = "right") +
-    ggplot2::theme(legend.text = ggplot2::element_text(size = 15))
+  if (!"Latin America" %in% x$Continent) {
+    x <- x %>%
+      dplyr::add_row(Continent = "Latin America", Percentage = 0)
+  }
+
+  p <- waffle::waffle(x, legend_pos = "right",
+                      # colors = c(RColorBrewer::brewer.pal(nrow(x) + 1, "Set2"))
+                      ) +
+    ggplot2::theme(legend.text = ggplot2::element_text(size = 15)) #+
+    # ggplot2::scale_fill_manual(
+    #   values = c(RColorBrewer::brewer.pal(nrow(x), "Set2")),
+    #   labels = continent_order(short = TRUE),
+    #   name = NULL,
+    #   drop = FALSE)
 
   if (!is.null(citation)) {
     p <- gg_citation(p, citation, citation_size = citation_size)

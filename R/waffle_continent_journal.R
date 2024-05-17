@@ -35,7 +35,8 @@ waffle_continent_journal <- function(data, citation = NULL, citation_size = NULL
     dplyr::mutate(dplyr::across(2:6, ~ .x * 100)) %>%
     dplyr::arrange("journal") %>%
     tidyr::pivot_longer(-.data$journal, names_to = "continent", values_to = "number") %>%
-    dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE)))
+    dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE))) %>%
+    na.omit()
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(x$continent)), "Set2"

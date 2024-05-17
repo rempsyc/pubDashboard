@@ -83,7 +83,7 @@ plotly_citation <- function(x, citation, citation_size) {
       showarrow = F,
       # xref = 'container',
       yref = 'container',
-      xanchor = 'left',
+      xanchor = 'center',
       yanchor = 'top',
       # yshift = -1,
       # automargin = TRUE,

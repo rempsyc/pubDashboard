@@ -4,10 +4,12 @@
 \alias{add_region}
 \title{Add regions to pubDashboard dataframe}
 \usage{
-add_region(data)
+add_region(data, progress_bar = FALSE)
 }
 \arguments{
 \item{data}{The dataframe on which to add region.}
+
+\item{progress_bar}{Logical, whether to print a progress bar.}
 }
 \description{
 Add regions to pubDashboard dataframe

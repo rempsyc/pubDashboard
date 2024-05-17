@@ -4,12 +4,23 @@
 \alias{fetch_openalex_pubs}
 \title{Downloads relevant publication data using \code{openalexR}}
 \usage{
-fetch_openalex_pubs(journal_name = NULL, journal_id = NULL, ...)
+fetch_openalex_pubs(
+  journal_name = NULL,
+  journal_id = NULL,
+  clean_journals_continents = FALSE,
+  progress_bar = FALSE,
+  ...
+)
 }
 \arguments{
 \item{journal_name}{The list of desired journals (by journal name).}
 
 \item{journal_id}{The list of desired journals (by OpenAlex ID).}
+
+\item{clean_journals_continents}{Logical, whether to also process the
+dataframe with the \link{clean_journals_continents} function.
+It is set to FALSE by default because on large datasets it can be
+very time consuming.}
 
 \item{...}{Arguments passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}}}
 }
@@ -31,7 +42,6 @@ options(openalexR.apikey = "EXAMPLE_APIKEY")"
 }
 \examples{
 \dontrun{
-
 x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
 names(x)
 # Same as:

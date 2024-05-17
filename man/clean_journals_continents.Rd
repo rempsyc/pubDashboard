@@ -4,10 +4,12 @@
 \alias{clean_journals_continents}
 \title{Clean dataframe, for names of journals and continents}
 \usage{
-clean_journals_continents(data)
+clean_journals_continents(data, progress_bar = FALSE)
 }
 \arguments{
 \item{data}{The processed dataframe of data}
+
+\item{progress_bar}{Logical, whether to print a progress bar.}
 }
 \description{
 Clean dataframe, for names of journals and continents

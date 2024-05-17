@@ -16,7 +16,8 @@ Imports:
     stringr,
     countrycode,
     lubridate,
-    tidyr
+    tidyr,
+    progressr,
 Suggests: 
     ggplot2,
     RColorBrewer,

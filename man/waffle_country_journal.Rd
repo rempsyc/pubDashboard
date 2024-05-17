@@ -6,7 +6,7 @@
 \usage{
 waffle_country_journal(
   data,
-  citation,
+  citation = NULL,
   citation_size = NULL,
   journal_abbreviation = TRUE
 )
@@ -26,25 +26,9 @@ accordingly be cropped.}
 Generate a waffle chart of journal paper percentages, by continent (each square = 1\% of data)
 }
 \examples{
-\dontshow{
-.old_wd <- setwd(tempdir())
-}
 \dontrun{
-pubmed_query_string <- paste(
-  "passion [Title/Abstract]",
-  "AND Dualistic Model of Passion [Text Word]"
-)
-
-save_process_pubmed_batch(
-  pubmed_query_string,
-  year_low = 2023,
-  year_high = 2023
-)
-data <- read_bind_all_data()
+data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+data <- clean_journals_continents(data)
 waffle_country_journal(data)
-}
-\dontshow{
-unlink("easyPubMed_data_01.txt")
-setwd(.old_wd)
 }
 }

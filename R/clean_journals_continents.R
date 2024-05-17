@@ -1,10 +1,12 @@
 #' @title Clean dataframe, for names of journals and continents
 #' @param data The processed dataframe of data
+#' @param progress_bar Logical, whether to print a progress bar.
 #' @export
-clean_journals_continents <- function(data) {
+clean_journals_continents <- function(data, progress_bar = FALSE) {
   data %>%
-    add_region() %>%
+    add_region(progress_bar = progress_bar) %>%
     dplyr::mutate(
+      journal = clean_journal_names(journal),
       original_journal = .data$journal %in% pubDashboard::journal_field$journal[1:6],
       field = pubDashboard::journal_field$field[match(
         toupper(.data$journal), toupper(pubDashboard::journal_field$journal)
@@ -27,6 +29,17 @@ continent_order <- function(short = FALSE) {
     x <- c("Northern America", "Europe", "Asia", "Oceania", "Latin America and the Caribbean", "Africa")
   }
   x
+}
+
+#' @noRd
+clean_journal_names <- function(journal) {
+  x <- gsub("\u0098", "", x, fixed = TRUE)
+  x <- gsub("\u009c", "", x, fixed = TRUE)
+  x <- gsub(":.*", "", x) # removes content after colon
+  x <- gsub("/.*", "", x) # removes content after forward slash
+  x <- gsub("[(].*", "", x) # removes content in parentheses
+  x <- tools::toTitleCase(x)
+  trimws(x)
 }
 
 #' @title Detect missing journals
