@@ -33,7 +33,7 @@ continent_order <- function(short = FALSE) {
 
 #' @noRd
 clean_journal_names <- function(journal) {
-  x <- gsub("\u0098", "", x, fixed = TRUE)
+  x <- gsub("\u0098", "", journal, fixed = TRUE)
   x <- gsub("\u009c", "", x, fixed = TRUE)
   x <- gsub(":.*", "", x) # removes content after colon
   x <- gsub("/.*", "", x) # removes content after forward slash
