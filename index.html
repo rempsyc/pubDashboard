@@ -71,7 +71,7 @@
 </div>
 <!-- badges: start -->
 
-<p>The goal of <code>pubDashboard</code> is to facilitate the creation of pretty data visualization dashboards using the <code>flexdashboard</code> and <code>easyPubMed</code> packages.</p>
+<p>The goal of <code>pubDashboard</code> is to facilitate the creation of pretty data visualization dashboards using the <code>flexdashboard</code> and <code>openalexR</code> packages.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -79,72 +79,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If `remotes` isn't installed, use `install.packages("remotes")`</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rempsyc/pubDashboard"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="basic-examples">Basic Examples<a class="anchor" aria-label="anchor" href="#basic-examples"></a>
-</h2>
-<p><code>pubDashboard</code> helps parse the address to identify department and university of affiliation, as well as country.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rempsyc/pubDashboard" class="external-link">pubDashboard</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">address</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">"Department of Psychology, Cornell University, Ithaca, New York 14853-7601."</span>,</span>
-<span>  <span class="st">"Dipartimento di Psicologia Generale, Università di Padova, Italy."</span>,</span>
-<span>  <span class="st">"Universität Mannheim, Federal Republic of Germany."</span>,</span>
-<span>  <span class="st">"Département de psychologie, Université du Québec à Montréal, Canada."</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">get_affiliation</span><span class="op">(</span><span class="va">address</span>, <span class="st">"department"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Department of Psychology"            "Dipartimento di Psicologia Generale"</span></span>
-<span><span class="co">#&gt; [3] NA                                    "Département de psychologie"</span></span>
-<span></span>
-<span><span class="fu">get_affiliation</span><span class="op">(</span><span class="va">address</span>, <span class="st">"university"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Cornell University"              "Università di Padova"           </span></span>
-<span><span class="co">#&gt; [3] "Universität Mannheim"            "Université du Québec à Montréal"</span></span>
-<span></span>
-<span><span class="fu">get_country</span><span class="op">(</span><span class="va">address</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "United States" "Italy"         "Germany"       "Canada"</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="mega-function">Mega Function<a class="anchor" aria-label="anchor" href="#mega-function"></a>
-</h2>
-<p>One simple function allows to download the paper data from PubMed, convert the XLM data to a dataframe, extract affiliations, match universities to countries, identify countries and continents, and save the file to disk for later reuse.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">save_process_pubmed_batch</span><span class="op">(</span></span>
-<span>  pubmed_query_string <span class="op">=</span> <span class="st">"passion [Title/Abstract]"</span>,</span>
-<span>  journal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Journal of Personality and Social Psychology"</span>, <span class="st">"Health Psychology"</span><span class="op">)</span>,</span>
-<span>  year_low <span class="op">=</span> <span class="fl">2023</span>,</span>
-<span>  year_high <span class="op">=</span> <span class="fl">2030</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; pubmed_query_string =</span></span>
-<span><span class="co">#&gt;  passion [Title/Abstract] AND Journal of Personality and Social Psychology [Journal] </span></span>
-<span><span class="co">#&gt;  OR Health Psychology [Journal] AND ('2023/01/01' [Date - Publication] : '2030/12/31'</span></span>
-<span><span class="co">#&gt;  [Date - Publication]) </span></span>
-<span><span class="co">#&gt;  1/5 - Downloading PubMed data... [10:34:20 AM]</span></span>
-<span><span class="co">#&gt; [1] "PubMed data batch 1 / 1 downloaded..."</span></span>
-<span><span class="co">#&gt; 2/5 - Converting XLM files to dataframe... [10:34:23 AM]</span></span>
-<span><span class="co">#&gt; 3/5 - Extracting affiliations... [10:34:40 AM]</span></span>
-<span><span class="co">#&gt; 4/5 - Matching universities to countries... [10:34:40 AM]</span></span>
-<span><span class="co">#&gt; 5/5 - Identifying countries and continents... [10:34:44 AM]</span></span>
-<span><span class="co">#&gt; Operation successfully completed. Congratulations! [10:34:59 AM]</span></span>
-<span><span class="co">#&gt;  File saved in data/articles_2023_2030.rds</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="table-formatting-functions">Table formatting functions<a class="anchor" aria-label="anchor" href="#table-formatting-functions"></a>
-</h2>
-<p>Various functions allow to prepare DT tables to display specific information, such as journal paper percentages by continent or country.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_bind_all_data.html">read_bind_all_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/table_continent.html">table_continent</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/table_journal_continent.png"></p>
-</div>
-<div class="section level2">
-<h2 id="figure-formatting-functions">Figure formatting functions<a class="anchor" aria-label="anchor" href="#figure-formatting-functions"></a>
-</h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/waffle_country.html">waffle_country</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-waffle_country-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="example-dashboards">Example Dashboards<a class="anchor" aria-label="anchor" href="#example-dashboards"></a>
