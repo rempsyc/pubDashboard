@@ -21,7 +21,7 @@
 #' @param ... Arguments passed to [openalexR::oa_fetch()]
 #' @examples
 #' \dontrun{
-#' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
+#' x <- fetch_openalex_pubs(journal_name = "Nature human behaviour", pages = 1, per_page = 1)
 #' names(x)
 #' # Same as:
 #' x <- fetch_openalex_pubs(journal_id = "S4210175756", pages = 1, per_page = 1)
@@ -53,9 +53,9 @@ fetch_openalex_pubs <- function(journal_name = NULL,
   }
 
   sources2 <- sources %>%
+    dplyr::mutate(journal = clean_journal_names(.data$display_name)) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      journal = .data$display_name,
       jabbrv = .data$alternate_titles[1],
       alt_title = .data$alternate_titles[2]) %>%
     dplyr::ungroup() %>%
@@ -78,7 +78,8 @@ fetch_openalex_pubs <- function(journal_name = NULL,
                   date = "publication_date") %>%
     dplyr::mutate(
       date = lubridate::as_date(.data$date),
-      year = lubridate::year(.data$date))
+      year = lubridate::year(.data$date),
+      journal = clean_journal_names(.data$journal))
 
   data <- data %>%
     dplyr::left_join(sources2, by = "journal") %>%
