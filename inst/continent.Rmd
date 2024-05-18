@@ -42,13 +42,13 @@ This dashboard was created with the `pubDashboard` package in R (https://rempsyc
 
 ### Method & Data
 
-The data from this report include information about publications from from some journals for some years. They include information about the articles (e.g., title, abstract) as well as on the authors, such as university of affiliation. These data were obtained from PubMed using the PubMed API through the `easyPubMed` package. The country of the first author of each paper was determined based on the affiliation address by matching the university name with a world university names database obtained from GitHub.
+The data from this report include information about publications from from some journals for some years. They include information about the articles (e.g., title, abstract) as well as on the authors, such as university of affiliation. These data were obtained from PubMed using the OpenAlex API through the `openalexR` package. The country of the first author of each paper was determined based on the affiliation address by matching the university name with a world university names database obtained from GitHub.
 
 > \* Percentages are calculated after excluding missing values. The *Missing* column shows the real percentage of missing values.
 
 ### Missing data
 
-Some of the papers were missing address information; in many cases, the PubMed API provided only the department and no university. It was not possible to identify the country in these cases (one would need to look at the actual papers one by one to make manual corrections). Furthermore, some university names from the data did not match the university name database obtained from GitHub. In some cases, I have brought manual corrections to university names in an attempt to reduce the number of missing values.
+Some of the papers were missing address information; in many cases, the API provided only the department and no university. It was not possible to identify the country in these cases (one would need to look at the actual papers one by one to make manual corrections). Furthermore, some university names from the data did not match the university name database obtained from GitHub. In some cases, I have brought manual corrections to university names in an attempt to reduce the number of missing values.
 
 > \* Percentages are calculated after excluding missing values. The *Missing* column shows the real percentage of missing values.
 

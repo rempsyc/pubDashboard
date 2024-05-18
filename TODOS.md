@@ -1,2 +1,1 @@
-- Move feature packages from import to suggests to reduce hard dependencies like in other packages?
-- Improve SPEED (!!!!) of processing for `save_process_pubmed_batch()` steps 2 to 5.
+- Finalize everything
