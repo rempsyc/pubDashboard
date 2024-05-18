@@ -21,7 +21,7 @@
 #' @param ... Arguments passed to [openalexR::oa_fetch()]
 #' @examples
 #' \dontrun{
-#' x <- fetch_openalex_pubs(journal_name = "Nature human behaviour", pages = 1, per_page = 1)
+#' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
 #' names(x)
 #' # Same as:
 #' x <- fetch_openalex_pubs(journal_id = "S4210175756", pages = 1, per_page = 1)

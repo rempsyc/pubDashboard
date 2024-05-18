@@ -19,7 +19,7 @@ psychology <- tibble::tribble(
   "Psychological Science", "PS", "https://openalex.org/S58854535",
   "Child Development", "CD", "https://openalex.org/S109723506",
   "Developmental Science", "DS", "https://openalex.org/S154906575",
-  "Personality & Social Psychology bulletin", "PSPB", "https://openalex.org/S187348256",
+  "Personality & Social Psychology Bulletin", "PSPB", "https://openalex.org/S187348256",
   "Nature Human Behaviour", "NHB", "https://openalex.org/S2764866340"
 )
 
