@@ -37,6 +37,14 @@ waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
     x <- x %>%
       dplyr::add_row(Continent = "Latin America", Percentage = 0)
   }
+  if (!"Africa" %in% x$Continent) {
+    x <- x %>%
+      dplyr::add_row(Continent = "Africa", Percentage = 0)
+  }
+
+  # Bump < 1 values to 1
+  x <- x %>%
+    dplyr::mutate(Percentage = dplyr::if_else(.data$Percentage < 1, 1, .data$Percentage))
 
   p <- waffle::waffle(x, legend_pos = "right",
                       # colors = c(RColorBrewer::brewer.pal(nrow(x) + 1, "Set2"))

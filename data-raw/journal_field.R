@@ -40,7 +40,7 @@ economics <- tibble::tribble(
   "American Economic Journal. Applied Economics", "AEJAE", "https://openalex.org/S42893225",
   "American Economic Journal. Economic Policy", "AEJEP", "https://openalex.org/S158011328",
   "American Economic Journal. Macroeconomics", "AEJM", "https://openalex.org/S170166683",
-  "American Economic Review", "AER", "https://openalex.org/S23254222",
+  "The American Economic Review", "AER", "https://openalex.org/S23254222",
   "American Economic Review. Insights", "AERI", "https://openalex.org/S4210174288",
   "Economic Development and Cultural Change", "EDCC", "https://openalex.org/S71670289",
   "Economic Journal", "EC", "https://openalex.org/S45992627",

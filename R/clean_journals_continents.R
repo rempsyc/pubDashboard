@@ -46,11 +46,11 @@ clean_journal_names <- function(journal) {
 #' @param data The processed dataframe of data
 #' @export
 detect_missing_journals <- function(data) {
-  data.frame(journal = pubDashboard::journal_field$journal_abbr) %>%
-    dplyr::mutate(found = toupper(pubDashboard::journal_field$journal_abbr) %in%
+  data.frame(journal = pubDashboard::journal_field$journal) %>%
+    dplyr::mutate(found = toupper(pubDashboard::journal_field$journal) %in%
                     toupper(unique(data$journal)),
                   found = ifelse(.data$found == FALSE, toupper(pubDashboard::journal_field$journal_abbr) %in%
-                                   toupper(unique(data$journal)), .data$found)) %>%
+                                   toupper(unique(data$jabbrv)), .data$found)) %>%
     dplyr::arrange(.data$found)
 }
 

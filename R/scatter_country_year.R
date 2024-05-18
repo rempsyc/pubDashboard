@@ -43,8 +43,11 @@ scatter_country_year <- function(data,
       data, .data$year
     ) * 100, 2)))
 
-  getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
+  getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Paired"))
   colours.country2 <- getPalette(length(unique(df_country_year$country)))
+
+  set.seed(42)
+  colours.country2 <- sample(colours.country2)
 
   p <- df_country_year %>%
     dplyr::mutate(

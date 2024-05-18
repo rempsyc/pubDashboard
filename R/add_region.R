@@ -15,10 +15,10 @@ add_region <- function(data,
   if (progress_bar) {
     pb <- progress::progress_bar$new(
       format = paste(
-        "Adding continent information",
+        "Processing...",
         "[:bar] :current/:total (:percent) [Elapsed: :elapsedfull || Remaining: :eta]"
       ),
-      total = nrow(data),
+      total = 2,
       complete = "=", # Completion bar character
       incomplete = "-", # Incomplete bar character
       current = ">", # Current bar character
@@ -26,13 +26,26 @@ add_region <- function(data,
       show_after = 0, # Seconds necessary before showing progress bar
       width = 100 # Width of the progress bar
     )
+  } else {
+    pb <- NULL
   }
 
+  pipe_progress(NULL, "1. Extracting author information...", pb = pb)
+
   data_first_author <- lapply(data$author, function (x) {
-    x[1, ]
-  }) %>% dplyr::bind_rows() %>%
-    dplyr::select("au_display_name", "author_position", "institution_display_name",
-                  "institution_country_code", "au_affiliation_raw")
+    # if (length(unlist(x)) == 1 && is.na(unlist(x)) || is.null(unlist(x))) {
+    #   x <- data.frame(au_display_name = "NA")
+    # } else {
+      x <- as.data.frame(x)[1, ]
+      x <- as.data.frame(x) #%>%
+        # dplyr::slice(1)
+    # }
+    x}) %>% dplyr::bind_rows() %>%
+    dplyr::select(dplyr::any_of(c("au_display_name", "author_position", "institution_display_name",
+                                  "institution_country_code", "au_affiliation_raw")))
+
+  # pipe_progress(NULL, "2. Binding datasets...", pb = pb)
+  pipe_progress(NULL, "3. Adding region...", pb = pb)
 
   data <- data %>%
     dplyr::bind_cols(data_first_author) %>%
@@ -41,6 +54,7 @@ add_region <- function(data,
                   institution = "institution_display_name",
                   country_code = "institution_country_code",
                   address = "au_affiliation_raw") %>%
+    # pipe_progress("3. Adding region...", pb = pb) %>%
     dplyr::mutate(
       country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
       region = countrycode::countrycode(
@@ -52,6 +66,14 @@ add_region <- function(data,
         .data$continent == "Americas" ~ .data$region,
         TRUE ~ .data$continent))
   data
+}
+
+pipe_progress <- function(x, step, pb) {
+  if (!is.null(pb)) {
+    pb$message(step)
+    pb$tick()
+  }
+  invisible(x)
 }
 
 extract_author_info <- function(author_list,

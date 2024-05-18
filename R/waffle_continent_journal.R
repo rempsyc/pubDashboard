@@ -38,6 +38,19 @@ waffle_continent_journal <- function(data, citation = NULL, citation_size = NULL
     dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE))) %>%
     stats::na.omit()
 
+  if (!"Latin America" %in% x$continent) {
+    x <- x %>%
+      dplyr::add_row(continent = "Latin America", number = 0)
+  }
+  if (!"Africa" %in% x$continent) {
+    x <- x %>%
+      dplyr::add_row(continent = "Africa", number = 0)
+  }
+
+  # Bump < 1 values to 1
+  x <- x %>%
+    dplyr::mutate(number = dplyr::if_else(.data$number < 1, 1, .data$number))
+
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(x$continent)), "Set2"
   ))
