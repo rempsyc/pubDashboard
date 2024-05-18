@@ -15,9 +15,13 @@
 table_missing_country <- function(data, datatable = TRUE) {
   x <- data %>%
     dplyr::filter(is.na(.data$country)) %>%
-    dplyr::select(-c("country_code":"region")) %>%
+    dplyr::select("journal", "continent", "region", "country",
+                  "country_code", "author", "author_position", "institution",
+                  "address", "date", "doi", "id", "title", "cited_by_count",
+                  "jabbrv", "alt_title", "field") %>%
     dplyr::arrange(.data$address) %>%
-    dplyr::mutate(doi = paste0("<a href='", .data$doi, "' target='_blank'>", .data$doi, "</a>"))
+    dplyr::mutate(doi = paste0("<a href='", .data$doi, "' target='_blank'>", .data$doi, "</a>"),
+                  id = paste0("<a href='", .data$id, "' target='_blank'>", .data$id, "</a>"))
 
   if (isTRUE(datatable)) {
     insight::check_if_installed("DT")

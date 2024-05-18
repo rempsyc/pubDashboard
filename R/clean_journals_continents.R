@@ -12,7 +12,7 @@ clean_journals_continents <- function(data, progress_bar = FALSE) {
         toupper(.data$journal), toupper(pubDashboard::journal_field$journal)
       )],
       field = ifelse(is.na(.data$field), pubDashboard::journal_field$field[match(
-        toupper(.data$journal), toupper(pubDashboard::journal_field$journal_short))], .data$field),
+        toupper(.data$journal), toupper(pubDashboard::journal_field$journal_abbr))], .data$field),
       continent = factor(.data$continent, levels = continent_order())
     ) %>%
     dplyr::group_by(.data$journal) %>%
@@ -46,10 +46,10 @@ clean_journal_names <- function(journal) {
 #' @param data The processed dataframe of data
 #' @export
 detect_missing_journals <- function(data) {
-  data.frame(journal = pubDashboard::journal_field$journal_short) %>%
-    dplyr::mutate(found = toupper(pubDashboard::journal_field$journal_short) %in%
+  data.frame(journal = pubDashboard::journal_field$journal_abbr) %>%
+    dplyr::mutate(found = toupper(pubDashboard::journal_field$journal_abbr) %in%
                     toupper(unique(data$journal)),
-                  found = ifelse(.data$found == FALSE, toupper(pubDashboard::journal_field$journal_short) %in%
+                  found = ifelse(.data$found == FALSE, toupper(pubDashboard::journal_field$journal_abbr) %in%
                                    toupper(unique(data$journal)), .data$found)) %>%
     dplyr::arrange(.data$found)
 }

@@ -68,7 +68,7 @@ general <- tibble::tribble(
   "Proceedings of the National Academy of Sciences of the United States of America", "PNAS", "https://openalex.org/S125754415",
   "Science", "Science", "https://openalex.org/S3880285",
   "Nature", "Nature", "https://openalex.org/S137773608",
-  "PloS One", "PloS One", "https://openalex.org/S202381698"
+  "Plos One", "Plos One", "https://openalex.org/S202381698"
 )
 
 journal_field <- dplyr::bind_rows(psychology, economics, general)

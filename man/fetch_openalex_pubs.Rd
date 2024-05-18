@@ -9,6 +9,7 @@ fetch_openalex_pubs(
   journal_id = NULL,
   clean_journals_continents = FALSE,
   progress_bar = FALSE,
+  verbose = TRUE,
   ...
 )
 }
@@ -23,6 +24,8 @@ It is set to FALSE by default because on large datasets it can be
 very time consuming.}
 
 \item{progress_bar}{Logical, whether to print a progress bar.}
+
+\item{verbose}{Passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}} and defaults to \code{TRUE.}}
 
 \item{...}{Arguments passed to \code{\link[openalexR:oa_fetch]{openalexR::oa_fetch()}}}
 }

@@ -17,6 +17,7 @@
 #'  It is set to FALSE by default because on large datasets it can be
 #'  very time consuming.
 #' @param progress_bar Logical, whether to print a progress bar.
+#' @param verbose Passed to [openalexR::oa_fetch()] and defaults to `TRUE.`
 #' @param ... Arguments passed to [openalexR::oa_fetch()]
 #' @examples
 #' \dontrun{
@@ -31,16 +32,19 @@ fetch_openalex_pubs <- function(journal_name = NULL,
                                 journal_id = NULL,
                                 clean_journals_continents = FALSE,
                                 progress_bar = FALSE,
+                                verbose = TRUE,
                                 ...) {
   if (is.null(journal_id)) {
     sources <- openalexR::oa_fetch(
       entity = "sources",
-      display_name.search = journal_name
+      display_name.search = journal_name,
+      verbose = verbose
     )
   } else {
     sources <- openalexR::oa_fetch(
       entity = "sources",
-      openalex = journal_id
+      openalex = journal_id,
+      verbose = verbose
     )
   }
 
@@ -53,18 +57,10 @@ fetch_openalex_pubs <- function(journal_name = NULL,
     dplyr::mutate(
       journal = .data$display_name,
       jabbrv = .data$alternate_titles[1],
-      jabbrv = dplyr::if_else(is.na(.data$jabbrv), .data$journal, .data$jabbrv),
-      alt_title = .data$alternate_titles[2]
-      ) %>%
+      alt_title = .data$alternate_titles[2]) %>%
     dplyr::ungroup() %>%
-    dplyr::select("journal", "jabbrv", "alt_title")
-
-  sources2 <- sources2 %>%
-    dplyr::mutate(journal = dplyr::if_else(
-      .data$journal == "Collabra", "Collabra. Psychology", .data$journal)) %>%
-    dplyr::left_join(pubDashboard::journal_field, by = "journal") %>%
-    dplyr::mutate(jabbrv = .data$journal_abbr) %>%
-    dplyr::select(-"journal_abbr")
+    dplyr::select("journal", "jabbrv", "alt_title") %>%
+    dplyr::left_join(pubDashboard::journal_field, by = "journal")
 
   data <- openalexR::oa_fetch(
     entity = "works",
@@ -73,17 +69,24 @@ fetch_openalex_pubs <- function(journal_name = NULL,
     options = list(select = c(
       "title", "id", "doi", "cited_by_count", "concepts",
       "authorships", "publication_date", "primary_location")),
+    verbose = verbose,
     ...
   )
 
   data <- data %>%
     dplyr::rename(journal = "so",
                   date = "publication_date") %>%
-    dplyr::mutate(date = lubridate::as_date(.data$date),
-                  year = lubridate::year(.data$date))
+    dplyr::mutate(
+      date = lubridate::as_date(.data$date),
+      year = lubridate::year(.data$date))
 
   data <- data %>%
-    dplyr::left_join(sources2, by = "journal", relationship = "many-to-many") %>%
+    dplyr::left_join(sources2, by = "journal") %>%
+    dplyr::mutate(journal = dplyr::if_else(
+                    .data$journal == "Collabra", "Collabra. Psychology", .data$journal),
+                  jabbrv = .data$journal_abbr,
+                  jabbrv = dplyr::if_else(is.na(.data$jabbrv),
+                                          .data$journal, .data$jabbrv)) %>%
     dplyr::select("title", "author", "date", "year", "id",
                   "doi", "cited_by_count", "concepts", "journal", "jabbrv", "alt_title",
                   "original_journal", "field")

@@ -28,17 +28,19 @@ add_region <- function(data,
     )
   }
 
+  data_first_author <- lapply(data$author, function (x) {
+    x[1, ]
+  }) %>% dplyr::bind_rows() %>%
+    dplyr::select("au_display_name", "author_position", "institution_display_name",
+                  "institution_country_code", "au_affiliation_raw")
+
   data <- data %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(address = extract_author_info(.data$author,
-                                                object = "address",
-                                                pb = pb,
-                                                progress_bar = progress_bar),
-                  country_code = extract_author_info(.data$author,
-                                                     object = "country",
-                                                     pb = pb,
-                                                     progress_bar = FALSE)) %>%
-    dplyr::ungroup() %>%
+    dplyr::bind_cols(data_first_author) %>%
+    dplyr::rename(authors = "author",
+                  author = "au_display_name",
+                  institution = "institution_display_name",
+                  country_code = "institution_country_code",
+                  address = "au_affiliation_raw") %>%
     dplyr::mutate(
       country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
       region = countrycode::countrycode(
@@ -67,6 +69,8 @@ extract_author_info <- function(author_list,
     object_name <- "institution_country_code"
   } else if (object == "address") {
     object_name <- "au_affiliation_raw"
+  } else if (object == "author") {
+    object_name <- "au_display_name"
   }
   if("author_position" %in% names(author_list)) {
     out <- author_list %>%
