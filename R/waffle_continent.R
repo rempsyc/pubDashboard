@@ -48,10 +48,14 @@ waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
       .data$Continent, " (", round(.data$Percentage, 1), " %)"),
       Percentage = dplyr::if_else(.data$Percentage < 1, 1, .data$Percentage))
 
-  p <- waffle::waffle(x, legend_pos = "right",
+  # Reorder continents for consistent continent order
+  x <- x %>%
+    arrange(match(x$Continent, continent_order(short = TRUE)))
+
+  p <- waffle::waffle(x, legend_pos = "right"#,
                       # colors = c(RColorBrewer::brewer.pal(nrow(x) + 1, "Set2"))
                       ) +
-    ggplot2::theme(legend.text = ggplot2::element_text(size = 15)) #+
+    ggplot2::theme(legend.text = ggplot2::element_text(size = 10)) #+
     # ggplot2::scale_fill_manual(
     #   values = c(RColorBrewer::brewer.pal(nrow(x), "Set2")),
     #   labels = continent_order(short = TRUE),
