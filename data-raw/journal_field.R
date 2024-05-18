@@ -27,10 +27,10 @@ economics <- tibble::tribble(
   ~ journal, ~ journal_abbr, ~ openalex_id,
   "Journal of Economic Psychology", "JEcP", "https://openalex.org/S71968408",
   "Journal of Experimental and Behavioral Economics", "JEBE", "https://openalex.org/S4210233753",
-  "Experimental Economics", "EE", "https://openalex.org/S181493553",
+  "Journal of Behavioral and Experimental Economics", "JBEE", "https://openalex.org/S181493553",
   "Journal of Development Economics", "JDE", "https://openalex.org/S101209419",
   "World Development", "WD", "https://openalex.org/S85457386",
-  "Quarterly Journal of Economics", "QJE", "https://openalex.org/S203860005",
+  "The Quarterly Journal of Economics", "QJE", "https://openalex.org/S203860005",
   "Econometrica", "Econometrica", "https://openalex.org/S95464858",
   "Behavioural Public Policy", "BPP", "https://openalex.org/S4210205184",
   "African Development Review", "ADR", "https://openalex.org/S33443600",
@@ -43,7 +43,7 @@ economics <- tibble::tribble(
   "The American Economic Review", "AER", "https://openalex.org/S23254222",
   "American Economic Review. Insights", "AERI", "https://openalex.org/S4210174288",
   "Economic Development and Cultural Change", "EDCC", "https://openalex.org/S71670289",
-  "Economic Journal", "EC", "https://openalex.org/S45992627",
+  "The Economic Journal", "EC", "https://openalex.org/S45992627",
   "Journal of African Economies", "JAE", "https://openalex.org/S36588791",
   "Journal of African Development", "JAD", "https://openalex.org/S4210182335",
   "Journal of Human Development and Capabilities", "JHDC", "https://openalex.org/S119060959",
@@ -58,8 +58,8 @@ economics <- tibble::tribble(
   "Review of Economic Studies", "RES", "https://openalex.org/S88935262",
   "Review of International Political Economy", "RIPE", "https://openalex.org/S2875300",
   "South African Journal of Economics", "SAJE", "https://openalex.org/S90392387",
-  "World Bank Economic Review", "WBER", "https://openalex.org/S2735890421",
-  "World Bank Research Observer", "WBRO", "https://openalex.org/S117685085",
+  "The World Bank Economic Review", "WBER", "https://openalex.org/S2735890421",
+  "The World Bank Research Observer", "WBRO", "https://openalex.org/S117685085",
   "World Development Perspectives", "WDP", "https://openalex.org/S2898425895"
 )
 
