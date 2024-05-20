@@ -9,7 +9,7 @@
 #' }
 #' @export
 clean_journals_continents <- function(data, progress_bar = FALSE) {
-  data %>%
+  data <- data %>%
     add_region(progress_bar = progress_bar) %>%
     dplyr::mutate(
       journal = clean_journal_names(.data$journal),
