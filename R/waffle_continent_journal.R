@@ -20,49 +20,56 @@ waffle_continent_journal <- function(data, citation = NULL, citation_size = NULL
     data <- data %>%
       dplyr::mutate(journal = .data$jabbrv)
   }
-  x <- data %>%
-    dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::group_by(.data$journal) %>%
-    dplyr::summarize(
-      `North America` = sum(.data$continent == "Northern America") / dplyr::n(),
-      Europe = sum(.data$continent == "Europe") / dplyr::n(),
-      Asia = sum(.data$continent == "Asia") / dplyr::n(),
-      Oceania = sum(.data$continent == "Oceania") / dplyr::n(),
-      `Latin America` = sum(.data$continent == "Latin America and the Caribbean") / dplyr::n(),
-      Africa = sum(.data$continent == "Africa") / dplyr::n(),
-    ) %>%
-    dplyr::mutate(dplyr::across(2:6, ~ .x * 100)) %>%
-    dplyr::arrange("journal") %>%
-    tidyr::pivot_longer(-.data$journal, names_to = "continent", values_to = "number") %>%
-    dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE))) %>%
-    stats::na.omit()
 
-  if (!"Latin America" %in% x$continent) {
-    x <- x %>%
-      dplyr::add_row(continent = "Latin America", number = 0)
-  }
-  if (!"Africa" %in% x$continent) {
-    x <- x %>%
-      dplyr::add_row(continent = "Africa", number = 0)
-  }
+  x <- table_continent_journal(data, datatable = FALSE) %>%
+    dplyr::select(-c("Missing*", "Papers", "Journal Abbreviation")) %>%
+    tidyr::pivot_longer(-"Journal", names_to = "continent", values_to = "papers_percentage") %>%
+    dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE)))
+
+  # x <- data %>%
+  #   dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
+  #   dplyr::filter(!is.na(.data$continent)) %>%
+  #   dplyr::group_by(.data$journal) %>%
+  #   dplyr::summarize(
+  #     `North America` = sum(.data$continent == "Northern America") / dplyr::n(),
+  #     Europe = sum(.data$continent == "Europe") / dplyr::n(),
+  #     Asia = sum(.data$continent == "Asia") / dplyr::n(),
+  #     Oceania = sum(.data$continent == "Oceania") / dplyr::n(),
+  #     `Latin America` = sum(.data$continent == "Latin America and the Caribbean") / dplyr::n(),
+  #     Africa = sum(.data$continent == "Africa") / dplyr::n(),
+  #   ) %>%
+  #   dplyr::mutate(dplyr::across(2:6, ~ .x * 100)) %>%
+  #   dplyr::arrange("journal") %>%
+  #   tidyr::pivot_longer(-.data$journal, names_to = "continent", values_to = "number") %>%
+  #   dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE))) %>%
+  #   stats::na.omit()
+
+  # if (!"Latin America" %in% x$continent) {
+  #   x <- x %>%
+  #     dplyr::add_row(continent = "Latin America", number = 0)
+  # }
+  # if (!"Africa" %in% x$continent) {
+  #   x <- x %>%
+  #     dplyr::add_row(continent = "Africa", number = 0)
+  # }
 
   # Reorder continents for consistent continent order
-  x <- x %>%
-    dplyr::arrange(match(x$continent, continent_order(short = TRUE)))
+  # x <- x %>%
+  #   dplyr::arrange(match(x$continent, continent_order(short = TRUE)))
 
   # Bump < 1 values to 1
   x <- x %>%
-    dplyr::mutate(number = dplyr::if_else(.data$number < 1, 1, .data$number))
+    dplyr::mutate(papers_percentage = dplyr::if_else(
+      .data$papers_percentage < 1, 1, .data$papers_percentage))
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(x$continent)), "Set2"
   ))
 
   p <- x %>%
-    ggplot2::ggplot(ggplot2::aes(fill = .data$continent, values = .data$number)) +
+    ggplot2::ggplot(ggplot2::aes(fill = .data$continent, values = .data$papers_percentage)) +
     waffle::geom_waffle(color = "white", size = 0.8, na.rm = TRUE) +
-    ggplot2::facet_wrap(~journal) +
+    ggplot2::facet_wrap(~Journal) +
     ggplot2::scale_y_continuous(expand = c(0, 0)) +
     ggplot2::coord_equal() +
     ggplot2::theme_minimal(base_size = 6) +

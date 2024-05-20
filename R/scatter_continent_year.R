@@ -22,11 +22,9 @@ scatter_continent_year <- function(data,
                                    ...) {
   insight::check_if_installed("RColorBrewer")
   data <- table_continent_year(data, datatable = FALSE) %>%
+    dplyr::select(-c("Missing*", "Papers")) %>%
     tidyr::pivot_longer(-"Year", names_to = "continent", values_to = "papers_percentage") %>%
-    dplyr::filter(!.data$continent %in% c("Missing*", "Papers")) %>%
-      dplyr::mutate(
-        continent = factor(.data$continent,
-                           levels = continent_order(short = TRUE)))
+    dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE)))
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(data$continent)), "Set2"

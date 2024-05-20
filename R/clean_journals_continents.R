@@ -23,8 +23,7 @@ clean_journals_continents <- function(data, progress_bar = FALSE) {
     ) %>%
     dplyr::group_by(.data$journal) %>%
     dplyr::mutate(first_Year = min(.data$year), last_year = max(.data$year),
-                  year_range = paste0(.data$first_Year, "-", .data$last_year),
-                  concepts = toString(data$concepts[[1]]$display_name)) %>%
+                  year_range = paste0(.data$first_Year, "-", .data$last_year)) %>%
     dplyr::ungroup()
 
   # Add concepts
