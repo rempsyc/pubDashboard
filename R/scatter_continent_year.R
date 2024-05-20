@@ -21,28 +21,12 @@ scatter_continent_year <- function(data,
                                    citation_size = 15,
                                    ...) {
   insight::check_if_installed("RColorBrewer")
-  data <- data %>%
-    dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::group_by(.data$year) %>%
-    dplyr::summarize(
-      `North America` = sum(.data$continent == "Northern America") / dplyr::n(),
-      Europe = sum(.data$continent == "Europe") / dplyr::n(),
-      Asia = sum(.data$continent == "Asia") / dplyr::n(),
-      Oceania = sum(.data$continent == "Oceania") / dplyr::n(),
-      `Latin America` = sum(.data$continent == "Latin America and the Caribbean") / dplyr::n(),
-      Africa = sum(.data$continent == "Africa") / dplyr::n(),
-    ) %>%
-    dplyr::mutate(dplyr::across(2:6, ~ .x * 100)) %>%
-    dplyr::arrange(.data$year) %>%
-    tidyr::pivot_longer(-"year", names_to = "continent", values_to = "papers_percentage") %>%
-    dplyr::mutate(
-      year = as.numeric(.data$year), continent = factor(
-        .data$continent,
-        levels = continent_order(short = TRUE)
-      ),
-      papers_percentage = round(.data$papers_percentage)
-    )
+  data <- table_continent_year(data, datatable = FALSE) %>%
+    tidyr::pivot_longer(-"Year", names_to = "continent", values_to = "papers_percentage") %>%
+    dplyr::filter(!.data$continent %in% c("Missing*", "Papers")) %>%
+      dplyr::mutate(
+        continent = factor(.data$continent,
+                           levels = continent_order(short = TRUE)))
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(data$continent)), "Set2"
@@ -50,12 +34,12 @@ scatter_continent_year <- function(data,
 
   p <- rempsyc::nice_scatter(
     data,
-    predictor = "year",
+    predictor = "Year",
     response = "papers_percentage",
     group = "continent",
     colours = colors,
     method = method,
-    groups.order = "decreasing",
+    # groups.order = "decreasing",
     ytitle = "% of All Papers",
     ...
   )
