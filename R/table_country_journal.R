@@ -13,7 +13,7 @@
 
 table_country_journal <- function(data, datatable = TRUE) {
   x <- data %>%
-    dplyr::group_by(.data$journal, .data$country) %>%
+    dplyr::group_by(.data$journal, .data$jabbrv, .data$country) %>%
     dplyr::filter(!is.na(.data$country)) %>%
     dplyr::count(name = "Papers") %>%
     dplyr::mutate(percentage = as.numeric(round(.data$Papers / get_journal_papers2(
@@ -40,6 +40,7 @@ table_country_journal <- function(data, datatable = TRUE) {
     dplyr::ungroup() %>%
     dplyr::add_row(df_country_journal_missing) %>%
     dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers)) %>%
+    dplyr::rename(`Journal Abbreviation` = "jabbrv") %>%
     dplyr::rename_with(stringr::str_to_title)
 
   if (isTRUE(datatable)) {

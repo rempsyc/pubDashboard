@@ -5,6 +5,6 @@
 ### Figure 1, Proportion of American First Authors 1987-Today
 
 ```{r, fig1}
-scatter_figure1(articles.df4, original = TRUE)
+scatter_figure1(data, original = TRUE)
 
 ```

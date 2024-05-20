@@ -5,7 +5,7 @@
 ### This table allows investigating why the country/university could not be identified
 
 ```{r missing_universities, warning=FALSE}
-articles.df4 %>% 
+data %>% 
   # slice(1:(nrow(.) / 10)) %>% 
   table_missing_country()
 

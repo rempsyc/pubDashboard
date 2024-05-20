@@ -20,7 +20,6 @@ table_continent_journal <- function(data, datatable = TRUE) {
   x <- data %>%
     dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
     dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::group_by(.data$journal) %>%
     dplyr::summarize(
       Papers = dplyr::n(),
       `North America` = sum(.data$continent == "Northern America") / dplyr::n(),
@@ -30,6 +29,7 @@ table_continent_journal <- function(data, datatable = TRUE) {
       `Latin America` = sum(.data$continent == "Latin America and the Caribbean") / dplyr::n(),
       Africa = sum(.data$continent == "Africa") / dplyr::n(),
       `Missing*` = dplyr::first(missing),
+      .by = c("journal", "jabbrv")
     )
 
   if (nrow(x) != length(journal_paper_missing)) {
@@ -45,6 +45,7 @@ table_continent_journal <- function(data, datatable = TRUE) {
       `Missing*` = journal_paper_missing,
       dplyr::across("North America":"Missing*", ~ round(.x * 100, 2))
     ) %>%
+    dplyr::rename(`Journal Abbreviation` = "jabbrv") %>%
     dplyr::rename_with(stringr::str_to_title)
 
   if (isTRUE(datatable)) {

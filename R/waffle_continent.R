@@ -4,7 +4,7 @@
 #' @param citation_size Font size of the citation.
 #' @examples
 #' \dontrun{
-#' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+#' data <- fetch_openalex_pubs(journal_name = "Journal of Economic Psychology", pages = 1)
 #' data <- clean_journals_continents(data)
 #' waffle_continent(data)
 #' }
@@ -42,15 +42,15 @@ waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
       dplyr::add_row(Continent = "Africa", Percentage = 0)
   }
 
+  # Reorder continents for consistent continent order
+  x <- x %>%
+    dplyr::arrange(match(x$Continent, continent_order(short = TRUE)))
+
   # Bump < 1 values to 1 and add percentages to labels
   x <- x %>%
     dplyr::mutate(Continent = paste0(
       .data$Continent, " (", round(.data$Percentage, 1), " %)"),
       Percentage = dplyr::if_else(.data$Percentage < 1, 1, .data$Percentage))
-
-  # Reorder continents for consistent continent order
-  x <- x %>%
-    arrange(match(x$Continent, continent_order(short = TRUE)))
 
   p <- waffle::waffle(x, legend_pos = "right"#,
                       # colors = c(RColorBrewer::brewer.pal(nrow(x) + 1, "Set2"))

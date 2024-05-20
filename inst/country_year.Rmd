@@ -5,7 +5,7 @@
 ### Scatter plot of journal paper percentages, by country and year
 
 ```{r, country_series_year}
-scatter_country_year(articles.df4, method = "lm")
+scatter_country_year(data, method = "lm")
 
 ```
 
@@ -14,7 +14,7 @@ scatter_country_year(articles.df4, method = "lm")
 ### Table of journal paper percentages, by country and year {data-height=200}
 
 ```{r, country_table_year}
-table_country_year(articles.df4)
+table_country_year(data)
 
 ```
 

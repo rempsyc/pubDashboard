@@ -27,6 +27,7 @@ economics <- tibble::tribble(
   ~ journal, ~ journal_abbr, ~ openalex_id,
   "Journal of Economic Psychology", "JEcP", "https://openalex.org/S71968408",
   "Journal of Experimental and Behavioral Economics", "JEBE", "https://openalex.org/S4210233753",
+  "Experimental Economics", "EE", "https://openalex.org/S181493553",
   "Journal of Behavioral and Experimental Economics", "JBEE", "https://openalex.org/S181493553",
   "Journal of Development Economics", "JDE", "https://openalex.org/S101209419",
   "World Development", "WD", "https://openalex.org/S85457386",
@@ -68,7 +69,7 @@ general <- tibble::tribble(
   "Proceedings of the National Academy of Sciences of the United States of America", "PNAS", "https://openalex.org/S125754415",
   "Science", "Science", "https://openalex.org/S3880285",
   "Nature", "Nature", "https://openalex.org/S137773608",
-  "Plos One", "Plos One", "https://openalex.org/S202381698"
+  "PloS One", "PloS One", "https://openalex.org/S202381698"
 )
 
 journal_field <- dplyr::bind_rows(psychology, economics, general)

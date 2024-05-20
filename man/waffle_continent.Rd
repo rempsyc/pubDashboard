@@ -18,7 +18,7 @@ Generate a waffle chart of journal paper percentages, by continent (each square 
 }
 \examples{
 \dontrun{
-data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
+data <- fetch_openalex_pubs(journal_name = "Journal of Economic Psychology", pages = 1)
 data <- clean_journals_continents(data)
 waffle_continent(data)
 }

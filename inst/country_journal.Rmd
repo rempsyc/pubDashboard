@@ -6,7 +6,7 @@
 
 ```{r country_table_journal_figure}
 
-waffle_country_journal(articles.df4)
+waffle_country_journal(data)
 
 ```
 
@@ -15,7 +15,7 @@ waffle_country_journal(articles.df4)
 ### Table of journal paper percentages, by country and journal {data-height=200}
 
 ```{r country_table_journal2}
-table_country_journal(articles.df4)
+table_country_journal(data)
 
 ```
 

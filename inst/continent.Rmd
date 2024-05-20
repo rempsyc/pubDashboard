@@ -5,26 +5,26 @@
 ### Waffle plot of journal paper percentages, by continent (each square = 1% of data) {data-height=600}
 
 ```{r get_historic_data}
-articles.df4 <- read_bind_all_data()
+data <- read_bind_all_data()
 
 ```
 
 ```{r clean_journals_continents}
-articles.df4 <- clean_journals_continents(articles.df4)
+data <- clean_journals_continents(data)
 
-saveRDS(articles.df4, "data/fulldata.rds")
+saveRDS(data, "data/fulldata.rds")
 
 ```
 
 ```{r continent_waffle_overall}
-waffle_continent(articles.df4)
+waffle_continent(data)
 
 ```
 
 ### Table of journal paper percentages, by continent {data-height=200}
 
 ```{r, continent_table}
-table_continent(articles.df4)
+table_continent(data)
 
 ```
 

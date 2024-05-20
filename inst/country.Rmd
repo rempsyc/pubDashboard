@@ -5,7 +5,7 @@
 ### Waffle plot of journal paper percentages, by country (each flag = 1% of data)
 
 ```{r country_table_overall, fig.width=4.5, fig.height=4.5}
-waffle_country(articles.df4)
+waffle_country(data)
 
 ```
 
@@ -14,7 +14,7 @@ waffle_country(articles.df4)
 ### Table of journal paper percentages, by country {data-height=200}
 
 ```{r country_table_journal}
-table_country(articles.df4)
+table_country(data)
 
 ```
 

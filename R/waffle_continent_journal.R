@@ -47,13 +47,13 @@ waffle_continent_journal <- function(data, citation = NULL, citation_size = NULL
       dplyr::add_row(continent = "Africa", number = 0)
   }
 
+  # Reorder continents for consistent continent order
+  x <- x %>%
+    dplyr::arrange(match(x$continent, continent_order(short = TRUE)))
+
   # Bump < 1 values to 1
   x <- x %>%
     dplyr::mutate(number = dplyr::if_else(.data$number < 1, 1, .data$number))
-
-  # Reorder continents for consistent continent order
-  x <- x %>%
-    arrange(match(x$continent, continent_order(short = TRUE)))
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(x$continent)), "Set2"
