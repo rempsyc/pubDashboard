@@ -1,6 +1,12 @@
 #' @title Clean dataframe, for names of journals and continents
 #' @param data The processed dataframe of data
 #' @param progress_bar Logical, whether to print a progress bar.
+#' @examples
+#' \dontrun{
+#' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
+#' x <- clean_journals_continents(x)
+#' names(x)
+#' }
 #' @export
 clean_journals_continents <- function(data, progress_bar = FALSE) {
   data %>%
@@ -17,8 +23,19 @@ clean_journals_continents <- function(data, progress_bar = FALSE) {
     ) %>%
     dplyr::group_by(.data$journal) %>%
     dplyr::mutate(first_Year = min(.data$year), last_year = max(.data$year),
-           year_range = paste0(.data$first_Year, "-", .data$last_year)) %>%
+                  year_range = paste0(.data$first_Year, "-", .data$last_year),
+                  concepts = toString(data$concepts[[1]]$display_name)) %>%
     dplyr::ungroup()
+
+  # Add concepts
+  concepts <- lapply(data$concepts, function(x) {
+    toString(x$display_name)
+    }) %>%
+    unlist()
+
+  data$concepts <- concepts
+
+  data
 }
 
 #' @noRd

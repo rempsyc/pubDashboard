@@ -14,3 +14,10 @@ clean_journals_continents(data, progress_bar = FALSE)
 \description{
 Clean dataframe, for names of journals and continents
 }
+\examples{
+\dontrun{
+x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
+x <- clean_journals_continents(x)
+names(x)
+}
+}

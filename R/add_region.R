@@ -33,14 +33,10 @@ add_region <- function(data,
   pipe_progress(NULL, "1. Extracting author information...", pb = pb)
 
   data_first_author <- lapply(data$author, function (x) {
-    # if (length(unlist(x)) == 1 && is.na(unlist(x)) || is.null(unlist(x))) {
-    #   x <- data.frame(au_display_name = "NA")
-    # } else {
-      x <- as.data.frame(x)[1, ]
-      x <- as.data.frame(x) #%>%
-        # dplyr::slice(1)
-    # }
-    x}) %>% dplyr::bind_rows() %>%
+    x <- as.data.frame(x)[1, ]
+    x <- as.data.frame(x)
+    x
+    }) %>% dplyr::bind_rows() %>%
     dplyr::select(dplyr::any_of(c("au_display_name", "author_position", "institution_display_name",
                                   "institution_country_code", "au_affiliation_raw")))
 
