@@ -50,7 +50,7 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       legend.title = ggplot2::element_blank(),
       legend.text = ggplot2::element_text(size = 5)
     ) +
-    ggplot2::scale_fill_brewer(palette="Set2")
+    ggplot2::scale_fill_brewer(palette = "Set2")
 
   if (!is.null(citation)) {
     p <- gg_citation(p, citation, citation_size = citation_size)

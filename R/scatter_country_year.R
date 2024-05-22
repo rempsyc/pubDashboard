@@ -35,25 +35,34 @@ scatter_country_year <- function(data,
     ) %>%
     dplyr::select(-"all_papers")
 
+  top_ten <- data %>%
+    dplyr::filter(!is.na(.data$continent)) %>%
+    dplyr::count(name = "Papers", country = .data$country) %>%
+    dplyr::arrange(dplyr::desc(.data$Papers)) %>%
+    dplyr::slice(1:10) %>%
+    dplyr::pull("country")
+
   df_country_year <- data %>%
     dplyr::group_by(.data$year, .data$country) %>%
     dplyr::filter(!is.na(.data$continent)) %>%
     dplyr::count(name = "Papers") %>%
     dplyr::mutate(percentage = as.numeric(round(.data$Papers / get_year_papers(
       data, .data$year
-    ) * 100, 2)))
-
-  getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Paired"))
-  colours.country2 <- getPalette(length(unique(df_country_year$country)))
-
-  set.seed(42)
-  colours.country2 <- sample(colours.country2)
-
-  p <- df_country_year %>%
+    ) * 100, 2))) %>%
+    dplyr::filter(.data$country %in% top_ten) %>%
+    dplyr::arrange(dplyr::desc(.data$Papers)) %>%
     dplyr::mutate(
       year = as.numeric(.data$year),
       country = as.factor(.data$country)
-    ) %>%
+    )
+
+  getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
+  colours.country2 <- getPalette(length(unique(df_country_year$country)))
+
+  # set.seed(42)
+  # colours.country2 <- sample(colours.country2)
+
+  p <- df_country_year %>%
     rempsyc::nice_scatter(
       predictor = "year",
       response = "percentage",
