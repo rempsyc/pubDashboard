@@ -51,3 +51,16 @@ table_country_journal <- function(data, datatable = TRUE) {
   }
   x
 }
+
+#' @noRd
+get_journal_papers2 <- function(data, journal) {
+  df_country_journal_missing2 <- data %>%
+    dplyr::filter(!is.na(.data$country)) %>%
+    dplyr::count(.data$journal, name = "Papers") %>%
+    dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers))
+
+  df_country_journal_missing2[which(
+    df_country_journal_missing2$journal == journal
+  ), "Papers"]
+}
+

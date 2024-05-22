@@ -24,49 +24,17 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
 
   df_country_journal <- table_country_journal(data, datatable = FALSE) %>%
     dplyr::select(-c("Papers", "Journal Abbreviation")) %>%
-    dplyr::filter(Country != "Missing*") %>%
+    dplyr::filter(.data$Country != "Missing*") %>%
     dplyr::mutate(
       Country = dplyr::case_when(
         dplyr::row_number() > 5 ~ "Other",
-        # .data$Percentage < 5 ~ "Other",
         TRUE ~ .data$Country
       )
     ) %>%
     dplyr::summarize(Percentage = sum(.data$Percentage),
                      .by = c("Journal", "Country")) %>%
-    dplyr::arrange(dplyr::desc(.data$Percentage))
-
-  # df_country_journal <- data %>%
-  #   dplyr::filter(!is.na(.data$country)) %>%
-  #   dplyr::group_by(.data$journal, .data$country) %>%
-  #   dplyr::add_count(name = "Papers") %>%
-  #   dplyr::ungroup() %>%
-  #   dplyr::group_by(.data$journal) %>%
-  #   dplyr::add_count(name = "journal_count") %>%
-  #   dplyr::mutate(
-  #     percentage = .data$Papers / .data$journal_count,
-  #     country = dplyr::case_when(
-  #       .data$percentage < 0.1 ~ "Other",
-  #       TRUE ~ .data$country
-  #     )
-  #   ) %>%
-  #   dplyr::ungroup() %>%
-  #   dplyr::count(.data$journal, .data$country, sort = TRUE, name = "Papers") %>%
-  #   dplyr::rowwise() %>%
-  #   dplyr::mutate(
-  #     percentage = as.numeric(round(.data$Papers / get_journal_papers2(
-  #       data, .data$journal
-  #     ) * 100, 2)),
-  #     country = as.factor(.data$country)
-  #   ) %>%
-  #   dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers)) %>%
-  #   stats::na.omit()
-
-  colors <- suppressWarnings(RColorBrewer::brewer.pal(
-    length(unique(data$Continent)), "Set2"
-  ))
-
-  colours.country2 <- grDevices::colorRampPalette(colors)(length(unique(df_country_journal$Country)))
+    dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
+    dplyr::mutate(Country = factor(.data$Country, levels = .data$Country))
 
   p <- df_country_journal %>%
     ggplot2::ggplot(ggplot2::aes(fill = .data$Country, values = .data$Percentage)) +
@@ -82,23 +50,11 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       legend.title = ggplot2::element_blank(),
       legend.text = ggplot2::element_text(size = 5)
     ) +
-    ggplot2::scale_fill_manual(values = colours.country2)
+    ggplot2::scale_fill_brewer(palette="Set2")
 
   if (!is.null(citation)) {
     p <- gg_citation(p, citation, citation_size = citation_size)
   }
 
   p
-}
-
-#' @noRd
-get_journal_papers2 <- function(data, journal) {
-  df_country_journal_missing2 <- data %>%
-    dplyr::filter(!is.na(.data$country)) %>%
-    dplyr::count(.data$journal, name = "Papers") %>%
-    dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers))
-
-  df_country_journal_missing2[which(
-    df_country_journal_missing2$journal == journal
-  ), "Papers"]
 }
