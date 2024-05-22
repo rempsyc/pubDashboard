@@ -27,7 +27,8 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
     dplyr::filter(Country != "Missing*") %>%
     dplyr::mutate(
       Country = dplyr::case_when(
-        .data$Percentage < 5 ~ "Other",
+        dplyr::row_number() > 5 ~ "Other",
+        # .data$Percentage < 5 ~ "Other",
         TRUE ~ .data$Country
       )
     ) %>%
