@@ -34,7 +34,7 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
     dplyr::summarize(Percentage = sum(.data$Percentage),
                      .by = c("Journal", "Country")) %>%
     dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
-    dplyr::mutate(Country = factor(.data$Country, levels = .data$Country))
+    dplyr::mutate(Country = factor(.data$Country, levels = unique(.data$Country)))
 
   p <- df_country_journal %>%
     ggplot2::ggplot(ggplot2::aes(fill = .data$Country, values = .data$Percentage)) +
