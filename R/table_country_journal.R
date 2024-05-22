@@ -23,7 +23,7 @@ table_country_journal <- function(data, datatable = TRUE) {
 
   df_country_journal_missing <- data %>%
     dplyr::filter(is.na(.data$country)) %>%
-    dplyr::group_by(.data$journal) %>%
+    dplyr::group_by(.data$journal, .data$jabbrv) %>%
     dplyr::count(.data$journal, name = "Papers") %>%
     dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers)) %>%
     dplyr::left_join(by = "journal", data %>%
