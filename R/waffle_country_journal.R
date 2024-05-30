@@ -22,16 +22,14 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       dplyr::mutate(journal = .data$jabbrv)
   }
 
-  top_seven <- data %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::count(name = "Papers", country = .data$country) %>%
-    dplyr::arrange(dplyr::desc(.data$Papers)) %>%
-    dplyr::slice(1:7) %>%
-    dplyr::pull("country")
+  df_country_journal <- table_country_journal(data, datatable = FALSE)
 
-  df_country_journal <- table_country_journal(data, datatable = FALSE) %>%
+  top_seven <- df_country_journal %>%
+    dplyr::slice(1:7) %>%
+    dplyr::pull("Country")
+
+  df_country_journal <- df_country_journal %>%
     dplyr::select(-c("Papers", "Journal Abbreviation")) %>%
-    dplyr::filter(.data$Country != "Missing*") %>%
     dplyr::summarize(Percentage = sum(.data$Percentage),
                      .by = c("Journal", "Country")) %>%
     dplyr::arrange(dplyr::desc(.data$Percentage)) %>%

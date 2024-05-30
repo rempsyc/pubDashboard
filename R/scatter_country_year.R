@@ -20,17 +20,16 @@ scatter_country_year <- function(data,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
-  top_seven <- data %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::count(name = "Papers", country = .data$country) %>%
-    dplyr::arrange(dplyr::desc(.data$Papers)) %>%
+  df_country_year <- table_country_year(data, datatable = FALSE)
+
+  top_seven <- df_country_year %>%
     dplyr::slice(1:7) %>%
     dplyr::pull("country")
 
-  df_country_year <- table_country_year(data, datatable = FALSE) %>%
+  df_country_year <- df_country_year %>%
     dplyr::mutate(country = dplyr::if_else(
       .data$country %in% top_seven, .data$country, "Other")) %>%
-    dplyr::arrange(dplyr::desc(.data$percentage), desc(.data$year))
+    dplyr::arrange(dplyr::desc(.data$percentage), dplyr::desc(.data$year))
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
   colours.country2 <- getPalette(8)
