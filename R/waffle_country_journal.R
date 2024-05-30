@@ -22,21 +22,22 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       dplyr::mutate(journal = .data$jabbrv)
   }
 
-  top_eight <- data %>%
+  top_seven <- data %>%
     dplyr::filter(!is.na(.data$continent)) %>%
     dplyr::count(name = "Papers", country = .data$country) %>%
     dplyr::arrange(dplyr::desc(.data$Papers)) %>%
-    dplyr::slice(1:8) %>%
+    dplyr::slice(1:7) %>%
     dplyr::pull("country")
 
   df_country_journal <- table_country_journal(data, datatable = FALSE) %>%
     dplyr::select(-c("Papers", "Journal Abbreviation")) %>%
-    dplyr::filter(.data$Country != "Missing*",
-                  .data$Country %in% top_eight) %>%
+    dplyr::filter(.data$Country != "Missing*") %>%
     dplyr::summarize(Percentage = sum(.data$Percentage),
                      .by = c("Journal", "Country")) %>%
     dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
-    dplyr::mutate(Country = factor(.data$Country, levels = unique(.data$Country)))
+    dplyr::mutate(Country = dplyr::if_else(
+      .data$Country %in% top_seven, .data$Country, "Other"),
+      Country = factor(.data$Country, levels = unique(.data$Country)))
 
   p <- df_country_journal %>%
     ggplot2::ggplot(ggplot2::aes(fill = .data$Country, values = .data$Percentage)) +
