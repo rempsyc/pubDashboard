@@ -20,44 +20,42 @@ scatter_country_year <- function(data,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
-  df_country_year_missing <- data %>%
-    dplyr::filter(is.na(.data$country)) %>%
-    dplyr::group_by(.data$year) %>%
-    dplyr::count(.data$year, name = "Papers") %>%
-    dplyr::arrange(dplyr::desc(.data$year), dplyr::desc(.data$Papers)) %>%
-    dplyr::left_join(by = "year", data %>%
-      dplyr::group_by(.data$year) %>%
-      dplyr::count(.data$year, name = "all_papers") %>%
-      dplyr::arrange(dplyr::desc(.data$year))) %>%
-    dplyr::mutate(
-      percentage = round(.data$Papers / .data$all_papers * 100, 2),
-      country = "Missing*"
-    ) %>%
-    dplyr::select(-"all_papers")
+  # top_ten <- data %>%
+  #   dplyr::filter(!is.na(.data$continent)) %>%
+  #   dplyr::count(name = "Papers", country = .data$country) %>%
+  #   dplyr::arrange(dplyr::desc(.data$Papers)) %>%
+  #   dplyr::slice(1:10) %>%
+  #   dplyr::pull("country")
 
-  top_ten <- data %>%
+  top_seven <- data %>%
     dplyr::filter(!is.na(.data$continent)) %>%
     dplyr::count(name = "Papers", country = .data$country) %>%
     dplyr::arrange(dplyr::desc(.data$Papers)) %>%
-    dplyr::slice(1:10) %>%
+    dplyr::slice(1:7) %>%
     dplyr::pull("country")
 
-  df_country_year <- data %>%
-    dplyr::group_by(.data$year, .data$country) %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::count(name = "Papers") %>%
-    dplyr::mutate(percentage = as.numeric(round(.data$Papers / get_year_papers(
-      data, .data$year
-    ) * 100, 2))) %>%
-    dplyr::filter(.data$country %in% top_ten) %>%
-    dplyr::arrange(dplyr::desc(.data$Papers)) %>%
-    dplyr::mutate(
-      year = as.numeric(.data$year),
-      country = as.factor(.data$country)
-    )
+  # df_country_year <- data %>%
+  #   dplyr::group_by(.data$year, .data$country) %>%
+  #   dplyr::filter(!is.na(.data$continent)) %>%
+  #   dplyr::count(name = "Papers") %>%
+  #   dplyr::mutate(percentage = as.numeric(round(.data$Papers / get_year_papers(
+  #     data, .data$year
+  #   ) * 100, 2))) %>%
+  #   dplyr::filter(.data$country %in% top_ten) %>%
+  #   dplyr::arrange(dplyr::desc(.data$Papers)) %>%
+  #   dplyr::mutate(
+  #     year = as.numeric(.data$year),
+  #     country = as.factor(.data$country)
+  #   )
+
+  df_country_year <- table_country_year(data, datatable = FALSE) %>%
+    dplyr::mutate(country = dplyr::if_else(
+      .data$country %in% top_seven, .data$country, "Other")) %>%
+    dplyr::arrange(dplyr::desc(percentage), year)
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
-  colours.country2 <- getPalette(length(unique(df_country_year$country)))
+  # colours.country2 <- getPalette(length(unique(df_country_year$country)))
+  colours.country2 <- getPalette(8)
 
   # set.seed(42)
   # colours.country2 <- sample(colours.country2)
