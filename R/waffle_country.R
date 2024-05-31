@@ -25,10 +25,15 @@ waffle_country <- function(data, citation = NULL, citation_size = NULL) {
 
   my_prop <- x %>%
     dplyr::mutate(
-      Country = countrycode::countrycode(.data$Country, "country.name", "genc2c"),
+      Country = countrycode::countrycode(.data$Country,
+                                         "country.name",
+                                         "genc2c",
+                                         # nomatch = NULL,
+                                         # warn = FALSE
+                                         ),
       Country = tolower(.data$Country)
-    ) %>%
-    dplyr::filter(!is.na(.data$Country))
+    ) #%>%
+    # dplyr::filter(!is.na(.data$Country))
   in_map_var <- lapply(seq_len(nrow(my_prop)), \(x) {
     rep(my_prop$Country[x], my_prop$Percentage[x])
   }) %>%
@@ -43,13 +48,16 @@ waffle_country <- function(data, citation = NULL, citation_size = NULL) {
 }
 
 #' @noRd
-waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = "ac") {
-  in_map_var <- data.frame(country = in_map_var)
+waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA) {
+  . <- NULL
   my_prop <- in_map_var %>%
+    data.frame(country = .) %>%
     dplyr::count(.data$country, sort = TRUE) %>%
-    dplyr::mutate(n2 = round(.data$n / nrow(in_map_var) * 100))
+    arrange(is.na(country))
+    #%>%
+    # dplyr::mutate(n2 = round(.data$n / nrow(in_map_var) * 100))
   in_map_var <- lapply(seq_len(nrow(my_prop)), \(x) {
-    rep(my_prop$country[x], my_prop$n2[x])
+    rep(my_prop$country[x], my_prop$n[x])
   }) %>%
     unlist()
   # work out grid dimensions
@@ -68,13 +76,25 @@ waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = "ac") {
       y = rep(1:x_count, y_count),
       country = c(in_map_var, rep(na_flag, grid_count - var_count))
     )
-  country_4legend <- unique(df$country)[unique(df$country) != na_flag]
+  # country_4legend <- unique(df$country)[unique(df$country) != na_flag]
+  country_4legend <- c(unique(df$country)[!is.na(unique(df$country))]#, "Other"
+                       )
+  # country_4legend <- levels(df$country)
+  country_4legend2 <- c(unique(df$country)[!is.na(unique(df$country))])
+
+  country_4legend2 <- countrycode::countrycode(country_4legend2,
+                                               "genc2c",
+                                               "country.name")
   p <-
     ggplot2::ggplot(df, ggplot2::aes(.data$x, .data$y, country = .data$country)) +
     ggflags::geom_flag(size = 8.5) +
-    ggflags::scale_country(breaks = country_4legend) +
+    ggflags::scale_country(
+      labels = country_4legend2,
+      breaks = country_4legend
+                           ) +
     ggplot2::theme_void() +
     ggplot2::coord_equal() +
+    ggplot2::theme(legend.title = ggplot2::element_blank()) +
     ggplot2::theme(legend.position = "right")
   if (grid_count > var_count) {
     p <-
@@ -86,3 +106,4 @@ waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = "ac") {
   }
   p
 }
+
