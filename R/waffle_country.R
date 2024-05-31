@@ -53,7 +53,7 @@ waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA) {
   my_prop <- in_map_var %>%
     data.frame(country = .) %>%
     dplyr::count(.data$country, sort = TRUE) %>%
-    arrange(is.na(country))
+    dplyr::arrange(is.na(.data$country))
     #%>%
     # dplyr::mutate(n2 = round(.data$n / nrow(in_map_var) * 100))
   in_map_var <- lapply(seq_len(nrow(my_prop)), \(x) {

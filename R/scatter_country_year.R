@@ -26,9 +26,23 @@ scatter_country_year <- function(data,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
-
   x <- table_country_year(data, datatable = FALSE) %>%
     clean_top()
+
+  top_order <- x %>%
+    dplyr::group_by(.data$Country) %>%
+    dplyr::summarize(Percentage = sum(.data$Percentage)) %>%
+    dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
+    dplyr::pull("Country") %>%
+    as.character()
+
+  if ("Other" %in% top_order) {
+    top_order <- top_order[-which(top_order == "Other")]
+    top_order <- c(top_order, "Other")
+  }
+
+  x <- x %>%
+    dplyr::mutate(Country = factor(.data$Country, levels = top_order))
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
   colours.country2 <- getPalette(8)
@@ -43,7 +57,7 @@ scatter_country_year <- function(data,
       ymin = ymin,
       ymax = ymax,
       yby = yby,
-      groups.order = "decreasing",
+      # groups.order = "decreasing",
       ytitle = "% of All Papers",
       ...
     )
