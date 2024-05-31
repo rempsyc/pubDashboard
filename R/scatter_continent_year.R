@@ -1,9 +1,12 @@
 #' @title Generate table of journal paper percentages, by continent and year
 #' @param data The processed dataframe of data
-#' @param method Which method to use for the regression line, either "lm" (default) or "loess".
-#' @param plotly Logical, whether to use plotly for dynamic data visualization.
-#' @param citation Optionally, a citation to add as a footer.
-#' @param citation_size Font size of the citation.
+#' @param method Which method to use for the regression line, either "lm" (default) or "loess"
+#' @param ymin Minimum value for y-axis
+#' @param ymax Maximum value for y-axis
+#' @param yby Tick increments for y-axis
+#' @param plotly Logical, whether to use plotly for dynamic data visualization
+#' @param citation Optionally, a citation to add as a footer
+#' @param citation_size Font size of the citation
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
 #' \dontrun{
@@ -16,6 +19,9 @@
 
 scatter_continent_year <- function(data,
                                    method = "lm",
+                                   ymin = 0,
+                                   ymax = 100,
+                                   yby = 20,
                                    plotly = TRUE,
                                    citation = NULL,
                                    citation_size = 15,
@@ -37,6 +43,9 @@ scatter_continent_year <- function(data,
     group = "continent",
     colours = colors,
     method = method,
+    ymin = ymin,
+    ymax = ymax,
+    yby = yby,
     # groups.order = "decreasing",
     ytitle = "% of All Papers",
     ...

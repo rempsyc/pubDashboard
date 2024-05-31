@@ -7,6 +7,9 @@
 scatter_country_year(
   data,
   method = "lm",
+  ymin = 0,
+  ymax = 100,
+  yby = 20,
   plotly = TRUE,
   citation = NULL,
   citation_size = 15,
@@ -17,6 +20,12 @@ scatter_country_year(
 \item{data}{The processed dataframe of data}
 
 \item{method}{Which method to use for the regression line, either "lm" (default) or "loess".}
+
+\item{ymin}{Minimum value for y-axis}
+
+\item{ymax}{Maximum value for y-axis}
+
+\item{yby}{Tick increments for y-axis}
 
 \item{plotly}{Logical, whether to use plotly for dynamic data visualization.}
 

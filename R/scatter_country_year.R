@@ -1,6 +1,9 @@
 #' @title Generate table of journal paper percentages, by continent and year
 #' @param data The processed dataframe of data
 #' @param method Which method to use for the regression line, either "lm" (default) or "loess".
+#' @param ymin Minimum value for y-axis
+#' @param ymax Maximum value for y-axis
+#' @param yby Tick increments for y-axis
 #' @param plotly Logical, whether to use plotly for dynamic data visualization.
 #' @param citation Optionally, a citation to add as a footer.
 #' @param citation_size Font size of the citation.
@@ -16,20 +19,20 @@
 
 scatter_country_year <- function(data,
                                  method = "lm",
+                                 ymin = 0,
+                                 ymax = 100,
+                                 yby = 20,
                                  plotly = TRUE,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
+  . <- NULL
   df_country_year <- table_country_year(data, datatable = FALSE) %>%
     dplyr::filter(.data$Country != "Missing*")
 
-  top_seven <- df_country_year %>%
-    dplyr::slice(1:7) %>%
-    dplyr::pull("Country")
-
   df_country_year <- df_country_year %>%
     dplyr::mutate(Country = dplyr::if_else(
-      .data$Country %in% top_seven, .data$Country, "Other")) %>%
+      .data$Country %in% top_countries(.), .data$Country, "Other")) %>%
     dplyr::arrange(dplyr::desc(.data$Percentage), dplyr::desc(.data$Year))
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
@@ -42,6 +45,9 @@ scatter_country_year <- function(data,
       group = "Country",
       colours = colours.country2,
       method = method,
+      ymin = ymin,
+      ymax = ymax,
+      yby = yby,
       groups.order = "decreasing",
       ytitle = "% of All Papers",
       ...

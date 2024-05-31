@@ -7,6 +7,9 @@
 scatter_continent_year(
   data,
   method = "lm",
+  ymin = 0,
+  ymax = 100,
+  yby = 20,
   plotly = TRUE,
   citation = NULL,
   citation_size = 15,
@@ -16,13 +19,19 @@ scatter_continent_year(
 \arguments{
 \item{data}{The processed dataframe of data}
 
-\item{method}{Which method to use for the regression line, either "lm" (default) or "loess".}
+\item{method}{Which method to use for the regression line, either "lm" (default) or "loess"}
 
-\item{plotly}{Logical, whether to use plotly for dynamic data visualization.}
+\item{ymin}{Minimum value for y-axis}
 
-\item{citation}{Optionally, a citation to add as a footer.}
+\item{ymax}{Maximum value for y-axis}
 
-\item{citation_size}{Font size of the citation.}
+\item{yby}{Tick increments for y-axis}
+
+\item{plotly}{Logical, whether to use plotly for dynamic data visualization}
+
+\item{citation}{Optionally, a citation to add as a footer}
+
+\item{citation_size}{Font size of the citation}
 
 \item{...}{Further arguments passed to \link[rempsyc:nice_scatter]{rempsyc::nice_scatter}}
 }
