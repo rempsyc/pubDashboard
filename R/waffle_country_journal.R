@@ -22,19 +22,10 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       dplyr::mutate(journal = .data$jabbrv)
   }
 
-  df_country_journal <- table_country_journal(data, datatable = FALSE) %>%
-    dplyr::filter(.data$Country != "Missing*")
+  x <- table_country_journal(data, datatable = FALSE) %>%
+    clean_top()
 
-  df_country_journal <- df_country_journal %>%
-    dplyr::select(-c("Papers", "Journal Abbreviation")) %>%
-    # dplyr::summarize(Percentage = sum(.data$Percentage),
-    #                  .by = c("Journal", "Country")) %>%
-    dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
-    dplyr::mutate(Country = dplyr::if_else(
-      .data$Country %in% top_countries(.), .data$Country, "Other"),
-      Country = factor(.data$Country, levels = unique(.data$Country)))
-
-  p <- df_country_journal %>%
+  p <- x %>%
     ggplot2::ggplot(ggplot2::aes(fill = .data$Country, values = .data$Percentage)) +
     waffle::geom_waffle(color = "white", size = 0.8, na.rm = TRUE) +
     ggplot2::facet_wrap(~ .data$Journal) +
@@ -56,3 +47,24 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
 
   p
 }
+
+#' @noRd
+clean_top <- function(data, top = 7) {
+  . <- NULL
+  data %>%
+    dplyr::filter(.data$Country != "Missing*") %>%
+    dplyr::select(dplyr::any_of(c("Journal", "Year", "Country", "Percentage"))) %>%
+    dplyr::mutate(Country = dplyr::if_else(
+      .data$Country %in% top_countries(., top), .data$Country, "Other"),
+      Country = factor(.data$Country, levels = unique(.data$Country))) %>%
+    dplyr::summarize(Percentage = sum(.data$Percentage),
+                     .by = dplyr::any_of(c("Journal", "Year", "Country")))
+}
+
+#' @noRd
+top_countries <- function(data, top = 7) {
+  data %>%
+    dplyr::slice(1:top) %>%
+    dplyr::pull("Country")
+}
+

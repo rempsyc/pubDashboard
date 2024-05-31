@@ -13,34 +13,9 @@
 waffle_country <- function(data, citation = NULL, citation_size = NULL) {
   insight::check_if_installed(c("ggflags", "ggplot2", "RColorBrewer"))
   layer <- ggplot2::layer
-  . <- NULL
-  # x <- data %>%
-  #   dplyr::mutate(missing = sum(is.na(.data$country)) / dplyr::n()) %>%
-  #   dplyr::filter(!is.na(.data$country)) %>%
-  #   dplyr::group_by(.data$country) %>%
-  #   dplyr::add_count(name = "Papers") %>%
-  #   dplyr::mutate(
-  #     Percentage = .data$Papers / nrow(.),
-  #     country = dplyr::case_when(
-  #       .data$Percentage < 0.02 ~ "Other",
-  #       TRUE ~ .data$country
-  #     )
-  #   ) %>%
-  #   dplyr::ungroup() %>%
-  #   dplyr::mutate(nrow = dplyr::n()) %>%
-  #   dplyr::count(.data$country, .data$nrow, sort = TRUE, name = "Papers") %>%
-  #   dplyr::mutate(Percentage = .data$Papers / nrow * 100) %>%
-  #   dplyr::select(-c("nrow", "Papers")) %>%
-  #   dplyr::rename_with(stringr::str_to_title, .cols = 1)
 
   x <- table_country(data, datatable = FALSE) %>%
-    dplyr::filter(.data$Country != "Missing*") %>%
-    dplyr::select("Country", "Percentage")
-
-  x <- x %>%
-    dplyr::mutate(Country = dplyr::if_else(
-      .data$Country %in% top_countries(., 8), .data$Country, "Other"),
-      Country = factor(.data$Country, levels = unique(.data$Country)))
+    clean_top(8)
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
     length(unique(x$continent)), "Set2"
@@ -66,14 +41,6 @@ waffle_country <- function(data, citation = NULL, citation_size = NULL) {
 
   p
 }
-
-#' @noRd
-top_countries <- function(data, top = 7) {
-  data %>%
-    dplyr::slice(1:top) %>%
-    dplyr::pull("Country")
-}
-
 
 #' @noRd
 waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = "ac") {

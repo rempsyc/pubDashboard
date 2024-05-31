@@ -26,19 +26,14 @@ scatter_country_year <- function(data,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
-  . <- NULL
-  df_country_year <- table_country_year(data, datatable = FALSE) %>%
-    dplyr::filter(.data$Country != "Missing*")
 
-  df_country_year <- df_country_year %>%
-    dplyr::mutate(Country = dplyr::if_else(
-      .data$Country %in% top_countries(.), .data$Country, "Other")) %>%
-    dplyr::arrange(dplyr::desc(.data$Percentage), dplyr::desc(.data$Year))
+  x <- table_country_year(data, datatable = FALSE) %>%
+    clean_top()
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
   colours.country2 <- getPalette(8)
 
-  p <- df_country_year %>%
+  p <- x %>%
     rempsyc::nice_scatter(
       predictor = "Year",
       response = "Percentage",
@@ -68,12 +63,10 @@ scatter_country_year <- function(data,
 
 #' @noRd
 get_year_papers <- function(data, year) {
-  df_country_year_papers <- data %>%
+  x <- data %>%
     dplyr::filter(!is.na(.data$country)) %>%
     dplyr::count(.data$year, name = "Papers") %>%
     dplyr::arrange(dplyr::desc(.data$year), dplyr::desc(.data$Papers))
 
-  df_country_year_papers[which(
-    df_country_year_papers$year == year
-  ), "Papers"]
+  x[which(x$year == year), "Papers"]
 }
