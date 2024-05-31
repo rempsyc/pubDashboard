@@ -13,44 +13,50 @@
 
 waffle_continent <- function(data, citation = NULL, citation_size = NULL) {
   insight::check_if_installed(c("waffle", "ggplot2", "RColorBrewer"))
-  x <- data %>%
-    dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
-    dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::group_by(.data$continent) %>%
-    dplyr::add_count(name = "Papers") %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(nrow = dplyr::n()) %>%
-    dplyr::count(.data$continent, nrow, sort = TRUE, name = "Papers") %>%
-    dplyr::mutate(
-      continent = dplyr::case_match(
-        .data$continent,
-        continent_order()[1] ~ continent_order(short = TRUE)[1],
-        continent_order()[5] ~ continent_order(short = TRUE)[5],
-        .data$continent ~ .data$continent
-      ),
-      Percentage = .data$Papers / nrow * 100
-    ) %>%
-    dplyr::select(-c("nrow", "Papers")) %>%
-    dplyr::rename_with(stringr::str_to_title, .cols = 1)
 
-  if (!"Latin America" %in% x$Continent) {
-    x <- x %>%
-      dplyr::add_row(Continent = "Latin America", Percentage = 0)
-  }
-  if (!"Africa" %in% x$Continent) {
-    x <- x %>%
-      dplyr::add_row(Continent = "Africa", Percentage = 0)
-  }
+  # x <- data %>%
+  #   dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
+  #   dplyr::filter(!is.na(.data$continent)) %>%
+  #   dplyr::group_by(.data$continent) %>%
+  #   dplyr::add_count(name = "Papers") %>%
+  #   dplyr::ungroup() %>%
+  #   dplyr::mutate(nrow = dplyr::n()) %>%
+  #   dplyr::count(.data$continent, nrow, sort = TRUE, name = "Papers") %>%
+  #   dplyr::mutate(
+  #     continent = dplyr::case_match(
+  #       .data$continent,
+  #       continent_order()[1] ~ continent_order(short = TRUE)[1],
+  #       continent_order()[5] ~ continent_order(short = TRUE)[5],
+  #       .data$continent ~ .data$continent
+  #     ),
+  #     Percentage = .data$Papers / nrow * 100
+  #   ) %>%
+  #   dplyr::select(-c("nrow", "Papers")) %>%
+  #   dplyr::rename_with(stringr::str_to_title, .cols = 1)
+
+  x <- table_continent(data, datatable = FALSE) %>%
+    dplyr::select(-c("Missing*", "Papers")) %>%
+    tidyr::pivot_longer("North America":"Africa", names_to = "Continent", values_to = "Papers_percentage") #%>%
+    # dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE)))
+
+  # if (!"Latin America" %in% x$Continent) {
+  #   x <- x %>%
+  #     dplyr::add_row(Continent = "Latin America", Percentage = 0)
+  # }
+  # if (!"Africa" %in% x$Continent) {
+  #   x <- x %>%
+  #     dplyr::add_row(Continent = "Africa", Percentage = 0)
+  # }
 
   # Reorder continents for consistent continent order
-  x <- x %>%
-    dplyr::arrange(match(x$Continent, continent_order(short = TRUE)))
+  # x <- x %>%
+  #   dplyr::arrange(match(x$Continent, continent_order(short = TRUE)))
 
   # Bump < 1 values to 1 and add percentages to labels
   x <- x %>%
     dplyr::mutate(Continent = paste0(
-      .data$Continent, " (", round(.data$Percentage, 1), " %)"),
-      Percentage = dplyr::if_else(.data$Percentage < 1, 1, .data$Percentage))
+      .data$Continent, " (", round(.data$Papers_percentage, 1), " %)"),
+      Papers_percentage = dplyr::if_else(.data$Papers_percentage < 1, 1, .data$Papers_percentage))
 
   p <- waffle::waffle(x, legend_pos = "right"#,
                       # colors = c(RColorBrewer::brewer.pal(nrow(x) + 1, "Set2"))
