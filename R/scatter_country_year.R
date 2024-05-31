@@ -20,25 +20,26 @@ scatter_country_year <- function(data,
                                  citation = NULL,
                                  citation_size = 15,
                                  ...) {
-  df_country_year <- table_country_year(data, datatable = FALSE)
+  df_country_year <- table_country_year(data, datatable = FALSE) %>%
+    dplyr::filter(.data$Country != "Missing*")
 
   top_seven <- df_country_year %>%
     dplyr::slice(1:7) %>%
-    dplyr::pull("country")
+    dplyr::pull("Country")
 
   df_country_year <- df_country_year %>%
-    dplyr::mutate(country = dplyr::if_else(
-      .data$country %in% top_seven, .data$country, "Other")) %>%
-    dplyr::arrange(dplyr::desc(.data$percentage), dplyr::desc(.data$year))
+    dplyr::mutate(Country = dplyr::if_else(
+      .data$Country %in% top_seven, .data$Country, "Other")) %>%
+    dplyr::arrange(dplyr::desc(.data$Percentage), dplyr::desc(.data$Year))
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
   colours.country2 <- getPalette(8)
 
   p <- df_country_year %>%
     rempsyc::nice_scatter(
-      predictor = "year",
-      response = "percentage",
-      group = "country",
+      predictor = "Year",
+      response = "Percentage",
+      group = "Country",
       colours = colours.country2,
       method = method,
       groups.order = "decreasing",

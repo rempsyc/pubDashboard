@@ -22,7 +22,8 @@ waffle_country_journal <- function(data, citation = NULL, citation_size = NULL, 
       dplyr::mutate(journal = .data$jabbrv)
   }
 
-  df_country_journal <- table_country_journal(data, datatable = FALSE)
+  df_country_journal <- table_country_journal(data, datatable = FALSE) %>%
+    dplyr::filter(.data$Country != "Missing*")
 
   top_seven <- df_country_journal %>%
     dplyr::slice(1:7) %>%

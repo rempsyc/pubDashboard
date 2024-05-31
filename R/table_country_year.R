@@ -36,7 +36,8 @@ table_country_year <- function(data, datatable = TRUE) {
   x <- x %>%
     dplyr::ungroup() %>%
     dplyr::add_row(df_country_year_missing) %>%
-    dplyr::arrange(dplyr::desc(.data$year), dplyr::desc(.data$Papers))
+    dplyr::arrange(dplyr::desc(.data$year), dplyr::desc(.data$Papers)) %>%
+    dplyr::rename_with(stringr::str_to_title)
 
   if (isTRUE(datatable)) {
     insight::check_if_installed("DT")
