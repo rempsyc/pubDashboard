@@ -38,6 +38,7 @@ waffle_country <- function(data, citation = NULL, citation_size = NULL) {
     rep(my_prop$Country[x], my_prop$Percentage[x])
   }) %>%
     unlist()
+
   p <- waffle_country_internal(in_map_var)
 
   if (!is.null(citation)) {
@@ -56,26 +57,31 @@ waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA) {
     dplyr::arrange(is.na(.data$country))
     #%>%
     # dplyr::mutate(n2 = round(.data$n / nrow(in_map_var) * 100))
-  in_map_var <- lapply(seq_len(nrow(my_prop)), \(x) {
-    rep(my_prop$country[x], my_prop$n[x])
-  }) %>%
-    unlist()
+  # in_map_var <- lapply(seq_len(nrow(my_prop)), \(x) {
+  #   rep(my_prop$country[x], my_prop$n[x])
+  # }) %>%
+  #   unlist()
   # work out grid dimensions
-  var_count <- length(in_map_var)
-  if (is.na(len_x)) {
-    x_count <- ceiling(sqrt(var_count))
-  } else {
-    x_count <- len_x
-  }
-  y_count <- ceiling(var_count / x_count)
+  # var_count <- length(in_map_var)
+  # if (is.na(len_x)) {
+  #   x_count <- ceiling(sqrt(var_count))
+  # } else {
+  #   x_count <- len_x
+  # }
+  # y_count <- ceiling(var_count / x_count)
   # y_count <- 10
-  grid_count <- x_count * y_count
-  df <-
-    data.frame(
-      x = rep(1:y_count, each = x_count),
-      y = rep(1:x_count, y_count),
-      country = c(in_map_var, rep(na_flag, grid_count - var_count))
-    )
+  # grid_count <- x_count * y_count
+  # df <-
+  #   data.frame(
+  #     x = rep(1:y_count, each = x_count),
+  #     y = rep(1:x_count, y_count),
+  #     country = c(in_map_var, rep(na_flag, grid_count - var_count))
+  #   )
+  df <- data.frame(
+    x = rep(1:10, each = 10),
+    y = rep(1:10, 10),
+    country = c(in_map_var, rep(na_flag, 100 - length(in_map_var)))
+  )
   # country_4legend <- unique(df$country)[unique(df$country) != na_flag]
   country_4legend <- c(unique(df$country)[!is.na(unique(df$country))]#, "Other"
                        )
@@ -96,14 +102,14 @@ waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA) {
     ggplot2::coord_equal() +
     ggplot2::theme(legend.title = ggplot2::element_blank()) +
     ggplot2::theme(legend.position = "right")
-  if (grid_count > var_count) {
-    p <-
-      p +
-      ggplot2::geom_point(
-        data = df[var_count:grid_count, ],
-        ggplot2::aes(.data$x, .data$y), colour = "white", size = 10
-      )
-  }
+  # if (grid_count > var_count) {
+  #   p <-
+  #     p +
+  #     ggplot2::geom_point(
+  #       data = df[var_count:grid_count, ],
+  #       ggplot2::aes(.data$x, .data$y), colour = "white", size = 10
+  #     )
+  # }
   p
 }
 

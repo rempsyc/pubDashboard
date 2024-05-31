@@ -33,13 +33,9 @@ scatter_country_year <- function(data,
     dplyr::group_by(.data$Country) %>%
     dplyr::summarize(Percentage = sum(.data$Percentage)) %>%
     dplyr::arrange(dplyr::desc(.data$Percentage)) %>%
+    dplyr::arrange(.data$Country == "Other") %>%
     dplyr::pull("Country") %>%
     as.character()
-
-  if ("Other" %in% top_order) {
-    top_order <- top_order[-which(top_order == "Other")]
-    top_order <- c(top_order, "Other")
-  }
 
   x <- x %>%
     dplyr::mutate(Country = factor(.data$Country, levels = top_order))
