@@ -51,6 +51,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scatter_continent_year</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>  ymin <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  ymax <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  yby <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  plotly <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  citation <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  citation_size <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -65,19 +68,31 @@
 
 
 <dt>method</dt>
-<dd><p>Which method to use for the regression line, either "lm" (default) or "loess".</p></dd>
+<dd><p>Which method to use for the regression line, either "lm" (default) or "loess"</p></dd>
+
+
+<dt>ymin</dt>
+<dd><p>Minimum value for y-axis</p></dd>
+
+
+<dt>ymax</dt>
+<dd><p>Maximum value for y-axis</p></dd>
+
+
+<dt>yby</dt>
+<dd><p>Tick increments for y-axis</p></dd>
 
 
 <dt>plotly</dt>
-<dd><p>Logical, whether to use plotly for dynamic data visualization.</p></dd>
+<dd><p>Logical, whether to use plotly for dynamic data visualization</p></dd>
 
 
 <dt>citation</dt>
-<dd><p>Optionally, a citation to add as a footer.</p></dd>
+<dd><p>Optionally, a citation to add as a footer</p></dd>
 
 
 <dt>citation_size</dt>
-<dd><p>Font size of the citation.</p></dd>
+<dd><p>Font size of the citation</p></dd>
 
 
 <dt>...</dt>
