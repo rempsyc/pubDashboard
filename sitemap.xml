@@ -1,99 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/404.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/TODOS.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/add_region.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/clean_journals_continents.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/countries.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/detect_missing_journals.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/dygraph_year.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/fetch_openalex_pubs.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/journal_field.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/read_bind_all_data.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/render_dashboard.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/scatter_continent_year.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/scatter_country_year.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/scatter_figure1.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_continent.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_continent_journal.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_continent_year.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_country.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_country_journal.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_country_year.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_journal_count.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/table_missing_country.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/universities.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/us_states.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/waffle_continent.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/waffle_continent_journal.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/waffle_country.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/waffle_country_journal.html</loc>
-  </url>
-  <url>
-    <loc>https://rempsyc.github.io/pubDashboard/reference/world_capitals.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://rempsyc.github.io/pubDashboard/404.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/TODOS.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/authors.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/index.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/add_region.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/clean_journals_continents.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/countries.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/detect_missing_journals.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/dygraph_year.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/fetch_openalex_pubs.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/index.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/journal_field.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/read_bind_all_data.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/render_dashboard.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/scatter_continent_year.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/scatter_country_year.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/scatter_figure1.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_continent.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_continent_journal.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_continent_year.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_country.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_country_journal.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_country_year.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_journal_count.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/table_missing_country.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/universities.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/us_states.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/waffle_continent.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/waffle_continent_journal.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/waffle_country.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/waffle_country_journal.html</loc></url>
+<url><loc>https://rempsyc.github.io/pubDashboard/reference/world_capitals.html</loc></url>
 </urlset>
+
