@@ -68,14 +68,15 @@ plotly_citation <- function(x, citation, citation_size) {
   plotly::layout(
     x,
     annotations = list(
-      # x = 2020,
+      x = 1,
       y = 100,
       text = citation,
       showarrow = F,
-      # xref = 'container',
+      xref = 'paper', #'container',
       yref = 'container',
-      xanchor = 'center',
+      xanchor = 'right',
       yanchor = 'top',
+      align = 'right',
       # yshift = -1,
       # automargin = TRUE,
       # margin = list(b=90),
