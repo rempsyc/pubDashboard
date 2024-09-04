@@ -13,6 +13,7 @@ scatter_country_year(
   plotly = TRUE,
   citation = NULL,
   citation_size = 15,
+  text_size = NULL,
   ...
 )
 }
@@ -32,6 +33,8 @@ scatter_country_year(
 \item{citation}{Optionally, a citation to add as a footer.}
 
 \item{citation_size}{Font size of the citation.}
+
+\item{text_size}{Size of the element_text ggplot2 element}
 
 \item{...}{Further arguments passed to \link[rempsyc:nice_scatter]{rempsyc::nice_scatter}}
 }

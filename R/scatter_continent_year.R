@@ -7,6 +7,7 @@
 #' @param plotly Logical, whether to use plotly for dynamic data visualization
 #' @param citation Optionally, a citation to add as a footer
 #' @param citation_size Font size of the citation
+#' @param text_size Size of the element_text ggplot2 element
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
 #' \dontrun{
@@ -25,6 +26,7 @@ scatter_continent_year <- function(data,
                                    plotly = TRUE,
                                    citation = NULL,
                                    citation_size = 15,
+                                   text_size = NULL,
                                    ...) {
   insight::check_if_installed("RColorBrewer")
   data <- table_continent_year(data, datatable = FALSE) %>%
@@ -50,6 +52,11 @@ scatter_continent_year <- function(data,
     ytitle = "% of All Papers",
     ...
   )
+
+  if (!is.null(text_size)) {
+    p <- p +
+      theme(text = element_text(size = text_size))
+  }
 
   if (isTRUE(plotly)) {
     insight::check_if_installed("plotly")

@@ -52,7 +52,7 @@ scatter_journal_year <- function(data,
     ytitle = "% of All Papers",
     ...
   ) +
-    ggplot2::facet_wrap(~Journal, ncol = ncol)
+    ggplot2::facet_wrap(~Journal, ncol = ncol, scales = "free")
 
   if (isTRUE(plotly)) {
     insight::check_if_installed("plotly")
