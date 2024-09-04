@@ -55,7 +55,7 @@ scatter_continent_year <- function(data,
 
   if (!is.null(text_size)) {
     p <- p +
-      theme(text = element_text(size = text_size))
+      ggplot2::theme(text = ggplot2::element_text(size = text_size))
   }
 
   if (isTRUE(plotly)) {
