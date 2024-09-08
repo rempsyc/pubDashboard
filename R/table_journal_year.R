@@ -48,7 +48,9 @@ table_journal_year <- function(data, datatable = TRUE) {
       `Missing*` = continent_paper_missing,
       dplyr::across("North America":"Missing*", ~ round(.x * 100, 2))
     ) %>%
-    dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$year)) %>%
+    dplyr::arrange(dplyr::desc(.data$field),
+                   dplyr::desc(.data$journal),
+                   dplyr::desc(.data$year)) %>%
     dplyr::rename_with(stringr::str_to_title)
 
   if (isTRUE(datatable)) {

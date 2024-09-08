@@ -8,6 +8,7 @@
 #' @param citation Optionally, a citation to add as a footer
 #' @param citation_size Font size of the citation
 #' @param text_size Size of the element_text ggplot2 element
+#' @param height Height argument of [plotly::ggplotly]
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
 #' \dontrun{
@@ -27,6 +28,7 @@ scatter_continent_year <- function(data,
                                    citation = NULL,
                                    citation_size = 15,
                                    text_size = NULL,
+                                   height = NULL,
                                    ...) {
   insight::check_if_installed("RColorBrewer")
   data <- table_continent_year(data, datatable = FALSE) %>%
@@ -60,7 +62,7 @@ scatter_continent_year <- function(data,
 
   if (isTRUE(plotly)) {
     insight::check_if_installed("plotly")
-    p <- plotly::ggplotly(p = p, tooltip = c("x", "y"))
+    p <- plotly::ggplotly(p = p, tooltip = c("x", "y"), height = height)
     if (!is.null(citation)) {
       p <- plotly_citation(p, citation, citation_size = citation_size)
     }
