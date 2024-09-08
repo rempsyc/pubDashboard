@@ -22,7 +22,7 @@ table_journal_year <- function(data, datatable = TRUE) {
   x <- data %>%
     dplyr::mutate(missing = sum(is.na(.data$continent)) / dplyr::n()) %>%
     dplyr::filter(!is.na(.data$continent)) %>%
-    dplyr::group_by(.data$journal, .data$year) %>%
+    dplyr::group_by(.data$journal, .data$field, .data$year) %>%
     dplyr::summarize(
       Papers = dplyr::n(),
       `North America` = sum(.data$continent == "Northern America") / dplyr::n(),
@@ -51,7 +51,8 @@ table_journal_year <- function(data, datatable = TRUE) {
     dplyr::arrange(dplyr::desc(.data$field),
                    dplyr::desc(.data$journal),
                    dplyr::desc(.data$year)) %>%
-    dplyr::rename_with(stringr::str_to_title)
+    dplyr::rename_with(stringr::str_to_title) %>%
+    dplyr::select(-"Field")
 
   if (isTRUE(datatable)) {
     insight::check_if_installed("DT")
