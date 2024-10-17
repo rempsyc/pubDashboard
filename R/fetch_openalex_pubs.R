@@ -74,6 +74,11 @@ fetch_openalex_pubs <- function(journal_name = NULL,
     ...
   )
 
+  if (is.null(data)) {
+    message("No data found for given year range, returning NULL.")
+    return(NULL)
+  }
+
   data <- data %>%
     dplyr::rename(journal = "so",
                   date = "publication_date") %>%

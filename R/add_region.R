@@ -54,7 +54,7 @@ add_region <- function(data,
     dplyr::mutate(
       country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
       region = countrycode::countrycode(
-        .data$country_code, "genc2c", "un.regionsub.name"),
+        .data$country_code, "genc2c", "un.regionsub.name", custom_match = c("TW" = "Eastern Asia")),
       continent = countrycode::countrycode(
         .data$country_code, "genc2c", "continent"
         ),
