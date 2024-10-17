@@ -20,7 +20,9 @@ psychology <- tibble::tribble(
   "Child Development", "CD", "https://openalex.org/S109723506",
   "Developmental Science", "DS", "https://openalex.org/S154906575",
   "Personality & Social Psychology Bulletin", "PSPB", "https://openalex.org/S187348256",
-  "Nature Human Behaviour", "NHB", "https://openalex.org/S2764866340"
+  "Nature Human Behaviour", "NHB", "https://openalex.org/S2764866340",
+  "Social Psychological and Personality Science", "SPPS", "https://openalex.org/S138235560",
+  "Journal of Personality", "JP", "https://openalex.org/S73786128"
 )
 
 economics <- tibble::tribble(

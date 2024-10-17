@@ -5,7 +5,7 @@
 \alias{journal_field}
 \title{List of academic journals and corresponding fields}
 \format{
-A data frame with 25 rows and 3 variables:
+A data frame with 61 rows and 5 variables:
 \describe{
 \item{journal}{academic journal}
 \item{journal_abbr}{abbreviation of the journal name}

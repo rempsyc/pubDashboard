@@ -37,11 +37,9 @@ fetch_openalex_pubs <- function(journal_name = NULL,
                                 verbose = TRUE,
                                 ...) {
   if (is.null(journal_id)) {
-    sources <- openalexR::oa_fetch(
-      entity = "sources",
-      display_name.search = journal_name,
-      verbose = verbose
-    )
+    sources <- get_journal_id(
+      journal_name = journal_name,
+      verbose = verbose)
   } else {
     sources <- openalexR::oa_fetch(
       entity = "sources",
