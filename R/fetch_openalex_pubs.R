@@ -90,7 +90,7 @@ fetch_openalex_pubs <- function(journal_name = NULL,
   data <- data %>%
     dplyr::left_join(sources2, by = "journal") %>%
     dplyr::mutate(journal = dplyr::case_when(
-                    .data$journal == "Collabra" ~ "Collabra. Psychology",
+                    .data$journal == "Collabra" ~ "Collabra Psychology",
                     .data$journal == "PLOS ONE" ~ "PloS One",
                     .default = .data$journal),
                   jabbrv = .data$journal_abbr,
