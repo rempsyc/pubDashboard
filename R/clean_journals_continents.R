@@ -3,7 +3,8 @@
 #' @param progress_bar Logical, whether to print a progress bar.
 #' @examples
 #' \dontrun{
-#' x <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1, per_page = 1)
+#' x <- fetch_openalex_pubs(journal_name = "Collabra",
+#'   pages = 1, per_page = 1, publication_year = 2024)
 #' x <- clean_journals_continents(x)
 #' names(x)
 #' }
@@ -28,6 +29,10 @@ clean_journals_continents <- function(data, progress_bar = FALSE) {
 
   # Add concepts
   concepts <- lapply(data$concepts, function(x) {
+    if(all(is.na(x))) {
+      x <- list()
+      x$display_name <- ""
+    }
     toString(x$display_name)
     }) %>%
     unlist()
