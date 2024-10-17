@@ -49,7 +49,8 @@ fetch_openalex_pubs <- function(journal_name = NULL,
   }
 
   if (is.null(sources)) {
-    stop("Journal name may be incorrect.")
+    message("Journal name may be incorrect, returning NULL.")
+    return(NULL)
   }
 
   sources2 <- sources %>%
