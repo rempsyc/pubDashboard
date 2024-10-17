@@ -13,6 +13,8 @@ scatter_continent_year(
   plotly = TRUE,
   citation = NULL,
   citation_size = 15,
+  text_size = NULL,
+  height = NULL,
   ...
 )
 }
@@ -32,6 +34,10 @@ scatter_continent_year(
 \item{citation}{Optionally, a citation to add as a footer}
 
 \item{citation_size}{Font size of the citation}
+
+\item{text_size}{Size of the element_text ggplot2 element}
+
+\item{height}{Height argument of \link[plotly:ggplotly]{plotly::ggplotly}}
 
 \item{...}{Further arguments passed to \link[rempsyc:nice_scatter]{rempsyc::nice_scatter}}
 }

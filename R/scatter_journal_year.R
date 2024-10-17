@@ -7,33 +7,31 @@
 #' @param plotly Logical, whether to use plotly for dynamic data visualization
 #' @param citation Optionally, a citation to add as a footer
 #' @param citation_size Font size of the citation
-#' @param text_size Size of the element_text ggplot2 element
-#' @param height Height argument of [plotly::ggplotly]
+#' @param ncol How many columns for [ggplot2::facet_wrap]
 #' @param ... Further arguments passed to [rempsyc::nice_scatter]
 #' @examples
 #' \dontrun{
 #' data <- fetch_openalex_pubs(journal_name = "Collabra", pages = 1)
 #' data <- clean_journals_continents(data)
-#' scatter_continent_year(data)
+#' scatter_journal_year(data)
 #' }
 #' @importFrom rlang .data
 #' @export
 
-scatter_continent_year <- function(data,
-                                   method = "lm",
-                                   ymin = 0,
-                                   ymax = 100,
-                                   yby = 20,
-                                   plotly = TRUE,
-                                   citation = NULL,
-                                   citation_size = 15,
-                                   text_size = NULL,
-                                   height = NULL,
-                                   ...) {
+scatter_journal_year <- function(data,
+                                 method = "lm",
+                                 ymin = 0,
+                                 ymax = 100,
+                                 yby = 20,
+                                 plotly = TRUE,
+                                 citation = NULL,
+                                 citation_size = 15,
+                                 ncol = 4,
+                                 ...) {
   insight::check_if_installed("RColorBrewer")
-  data <- table_continent_year(data, datatable = FALSE) %>%
+  data <- table_journal_year(data, datatable = FALSE) %>%
     dplyr::select(-c("Missing*", "Papers")) %>%
-    tidyr::pivot_longer(-"Year", names_to = "continent", values_to = "papers_percentage") %>%
+    tidyr::pivot_longer(-c("Year", "Journal"), names_to = "continent", values_to = "papers_percentage") %>%
     dplyr::mutate(continent = factor(.data$continent, levels = continent_order(short = TRUE)))
 
   colors <- suppressWarnings(RColorBrewer::brewer.pal(
@@ -53,16 +51,12 @@ scatter_continent_year <- function(data,
     # groups.order = "decreasing",
     ytitle = "% of All Papers",
     ...
-  )
-
-  if (!is.null(text_size)) {
-    p <- p +
-      ggplot2::theme(text = ggplot2::element_text(size = text_size))
-  }
+  ) +
+    ggplot2::facet_wrap(~Journal, ncol = ncol, scales = "free")
 
   if (isTRUE(plotly)) {
     insight::check_if_installed("plotly")
-    p <- plotly::ggplotly(p = p, tooltip = c("x", "y"), height = height)
+    p <- plotly::ggplotly(p = p, tooltip = c("x", "y"))
     if (!is.null(citation)) {
       p <- plotly_citation(p, citation, citation_size = citation_size)
     }
