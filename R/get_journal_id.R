@@ -23,7 +23,7 @@
 #' @export
 
 get_journal_id <- function(journal_name, verbose = TRUE) {
-  sources <- openalexR::oa_fetch(
+  openalexR::oa_fetch(
     entity = "sources",
     display_name.search = journal_name,
     verbose = verbose

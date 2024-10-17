@@ -28,9 +28,8 @@ psychology <- tibble::tribble(
 economics <- tibble::tribble(
   ~ journal, ~ journal_abbr, ~ openalex_id,
   "Journal of Economic Psychology", "JEcP", "https://openalex.org/S71968408",
-  "Journal of Experimental and Behavioral Economics", "JEBE", "https://openalex.org/S4210233753",
   "Experimental Economics", "EE", "https://openalex.org/S181493553",
-  "Journal of Behavioral and Experimental Economics", "JBEE", "https://openalex.org/S181493553",
+  "Journal of Behavioral and Experimental Economics", "JBEE", "https://openalex.org/S4210233753",
   "Journal of Development Economics", "JDE", "https://openalex.org/S101209419",
   "World Development", "WD", "https://openalex.org/S85457386",
   "The Quarterly Journal of Economics", "QJE", "https://openalex.org/S203860005",
