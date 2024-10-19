@@ -39,7 +39,7 @@ table_country_journal <- function(data, datatable = TRUE) {
   x <- x %>%
     dplyr::ungroup() %>%
     dplyr::add_row(df_country_journal_missing) %>%
-    dplyr::arrange(dplyr::desc(.data$journal), dplyr::desc(.data$Papers)) %>%
+    dplyr::arrange(.data$journal, dplyr::desc(.data$Papers)) %>%
     dplyr::rename(`Journal Abbreviation` = "jabbrv") %>%
     dplyr::rename_with(stringr::str_to_title)
 
