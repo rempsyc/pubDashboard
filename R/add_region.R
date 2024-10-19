@@ -55,11 +55,16 @@ add_region <- function(data,
                   address = "au_affiliation_raw") %>%
     # pipe_progress("3. Adding region...", pb = pb) %>%
     dplyr::mutate(
-      country = countrycode::countrycode(.data$country_code, "genc2c", "country.name"),
+      country = countrycode::countrycode(.data$country_code,
+                                         "genc2c", "country.name",
+                                         custom_match = c("PS" = "Palestine")),
       region = countrycode::countrycode(
-        .data$country_code, "genc2c", "un.regionsub.name", custom_match = c("TW" = "Eastern Asia")),
+        .data$country_code, "genc2c", "un.regionsub.name",
+        custom_match = c("TW" = "Eastern Asia",
+                         "PS" = "Western Asia")),
       continent = countrycode::countrycode(
-        .data$country_code, "genc2c", "continent"
+        .data$country_code, "genc2c", "continent",
+        custom_match = c("PS" = "Asia")
         ),
       continent = dplyr::case_when(
         .data$continent == "Americas" ~ .data$region,
