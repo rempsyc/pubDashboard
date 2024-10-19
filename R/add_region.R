@@ -40,6 +40,9 @@ add_region <- function(data,
     dplyr::select(dplyr::any_of(c("au_display_name", "author_position", "institution_display_name",
                                   "institution_country_code", "au_affiliation_raw")))
 
+  data_first_author$institution_country_code <-
+    as.character(data_first_author$institution_country_code)
+
   # pipe_progress(NULL, "2. Binding datasets...", pb = pb)
   pipe_progress(NULL, "3. Adding region...", pb = pb)
 
