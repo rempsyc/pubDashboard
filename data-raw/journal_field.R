@@ -11,7 +11,7 @@ psychology <- tibble::tribble(
   # Above journals are the original
   "Journal of Experimental Social Psychology", "JESP", "https://openalex.org/S12410666",
   "Collabra Psychology", "Collabra", "https://openalex.org/S4210175756",
-  "Collabra", "Collabra", "https://openalex.org/S2737007392",
+  "Collabra", "Collabra2015", "https://openalex.org/S2737007392",
   "Journal of Experimental Psychology General", "JEPG", "https://openalex.org/S62013203",
   "Journal of Applied Psychology", "JApP", "https://openalex.org/S166002381",
   "Psychological Methods", "PM", "https://openalex.org/S45419345",
@@ -49,7 +49,7 @@ economics <- tibble::tribble(
   "Journal of African Economies", "JAE", "https://openalex.org/S36588791",
   "Journal of African Development", "JAD", "https://openalex.org/S4210182335",
   "Journal of Human Development and Capabilities", "JHDC", "https://openalex.org/S119060959",
-  "Journal of Development Effectiveness", "JDE", "https://openalex.org/S136516072",
+  "Journal of Development Effectiveness", "JDEf", "https://openalex.org/S136516072",
   "The Journal of Development Studies", "JDS", "https://openalex.org/S61808140",
   "Journal of Economic Growth", "JEG", "https://openalex.org/S181171746",
   "Journal of Labor Economics", "JLE", "https://openalex.org/S8557221",
