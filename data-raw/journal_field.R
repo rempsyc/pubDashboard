@@ -19,7 +19,7 @@ psychology <- tibble::tribble(
   "Psychological Science", "PS", "https://openalex.org/S58854535",
   "Child Development", "CD", "https://openalex.org/S109723506",
   "Developmental Science", "DS", "https://openalex.org/S154906575",
-  "Personality & Social Psychology Bulletin", "PSPB", "https://openalex.org/S187348256",
+  "Personality and Social Psychology Bulletin", "PSPB", "https://openalex.org/S187348256",
   "Nature Human Behaviour", "NHB", "https://openalex.org/S2764866340",
   "Social Psychological and Personality Science", "SPPS", "https://openalex.org/S138235560",
   "Journal of Personality", "JP", "https://openalex.org/S73786128"
@@ -42,7 +42,7 @@ economics <- tibble::tribble(
   "American Economic Journal Applied Economics", "AEJAE", "https://openalex.org/S42893225",
   "American Economic Journal Economic Policy", "AEJEP", "https://openalex.org/S158011328",
   "American Economic Journal Macroeconomics", "AEJM", "https://openalex.org/S170166683",
-  "The American Economic Review", "AER", "https://openalex.org/S23254222",
+  "American Economic Review", "AER", "https://openalex.org/S23254222",
   "American Economic Review Insights", "AERI", "https://openalex.org/S4210174288",
   "Economic Development and Cultural Change", "EDCC", "https://openalex.org/S71670289",
   "The Economic Journal", "EC", "https://openalex.org/S45992627",
@@ -50,14 +50,14 @@ economics <- tibble::tribble(
   "Journal of African Development", "JAD", "https://openalex.org/S4210182335",
   "Journal of Human Development and Capabilities", "JHDC", "https://openalex.org/S119060959",
   "Journal of Development Effectiveness", "JDE", "https://openalex.org/S136516072",
-  "Journal of Development Studies", "JDS", "https://openalex.org/S61808140",
+  "The Journal of Development Studies", "JDS", "https://openalex.org/S61808140",
   "Journal of Economic Growth", "JEG", "https://openalex.org/S181171746",
   "Journal of Labor Economics", "JLE", "https://openalex.org/S8557221",
   "Journal of Political Economy", "JPE", "https://openalex.org/S95323914",
   "Journal of Public Economics", "JPuE", "https://openalex.org/S199447588",
   "Review of African Political Economy", "RAfPE", "https://openalex.org/S36169284",
   "Review of Development Economics", "RDE", "https://openalex.org/S95496512",
-  "Review of Economic Studies", "RES", "https://openalex.org/S88935262",
+  "The Review of Economic Studies", "RES", "https://openalex.org/S88935262",
   "Review of International Political Economy", "RIPE", "https://openalex.org/S2875300",
   "South African Journal of Economics", "SAJE", "https://openalex.org/S90392387",
   "The World Bank Economic Review", "WBER", "https://openalex.org/S2735890421",
@@ -67,7 +67,7 @@ economics <- tibble::tribble(
 
 general <- tibble::tribble(
   ~ journal, ~ journal_abbr, ~ openalex_id,
-  "Proceedings of the National Academy of Sciences of the United States of America", "PNAS", "https://openalex.org/S125754415",
+  "Proceedings of the National Academy of Sciences", "PNAS", "https://openalex.org/S125754415",
   "Science", "Science", "https://openalex.org/S3880285",
   "Nature", "Nature", "https://openalex.org/S137773608",
   "PloS One", "PloS One", "https://openalex.org/S202381698"

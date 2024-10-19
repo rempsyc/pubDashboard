@@ -54,14 +54,16 @@ fetch_openalex_pubs <- function(journal_name = NULL,
   }
 
   sources2 <- sources %>%
-    dplyr::mutate(journal = clean_journal_names(.data$display_name)) %>%
+    # dplyr::mutate(journal = clean_journal_names(.data$display_name)) %>%
+    dplyr::rename("openalex_id" = "id") %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
       jabbrv = .data$alternate_titles[1],
       alt_title = .data$alternate_titles[2]) %>%
     dplyr::ungroup() %>%
-    dplyr::select("journal", "jabbrv", "alt_title") %>%
-    dplyr::left_join(pubDashboard::journal_field, by = "journal")
+    dplyr::select("openalex_id", "jabbrv", "alt_title") %>%
+    dplyr::left_join(pubDashboard::journal_field, by = "openalex_id") %>%
+    dplyr::rename("so_id" = "openalex_id")
 
   data <- openalexR::oa_fetch(
     entity = "works",
@@ -88,17 +90,26 @@ fetch_openalex_pubs <- function(journal_name = NULL,
       journal = clean_journal_names(.data$journal))
 
   data <- data %>%
-    dplyr::left_join(sources2, by = "journal") %>%
+    dplyr::select(-"journal") %>%
+    dplyr::left_join(sources2, by = "so_id") %>%
     dplyr::mutate(journal = dplyr::case_when(
-                    .data$journal == "Collabra" ~ "Collabra Psychology",
-                    .data$journal == "PLOS ONE" ~ "PloS One",
-                    .default = .data$journal),
-                  jabbrv = .data$journal_abbr,
-                  jabbrv = dplyr::if_else(is.na(.data$jabbrv),
-                                          .data$journal, .data$jabbrv)) %>%
+      .data$journal == "Collabra" ~ "Collabra Psychology",
+      .data$journal == "PLOS ONE" ~ "PloS One",
+      .data$journal == "Journal of Development Studies" ~ "The Journal of Development Studies",
+      .default = .data$journal),
+      jabbrv = .data$journal_abbr,
+      jabbrv = dplyr::if_else(is.na(.data$jabbrv),
+                              .data$journal, .data$jabbrv)) %>%
     dplyr::select("title", "author", "date", "year", "id",
                   "doi", "cited_by_count", "concepts", "journal", "jabbrv", "alt_title",
                   "original_journal", "field")
+
+  if (any(is.na(data$field))) {
+    missing.field <- data[which(is.na(data$field)), "journal"]
+    warning("Some journals were misidentified. Please contact the package ",
+            "author with the following information: ",
+            missing.field)
+  }
 
   if (clean_journals_continents) {
     data <- clean_journals_continents(data, progress_bar = progress_bar)

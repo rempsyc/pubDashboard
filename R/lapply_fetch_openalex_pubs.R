@@ -41,11 +41,11 @@ lapply_fetch_openalex_pubs <- function(years = 1987:2023,
   if (over == "year") {
     pb <- progress::progress_bar$new(
       format = paste(
-        "Downloading OpenAlex data for", pubDashboard::journal_field %>%
+        "\nDownloading OpenAlex data for", pubDashboard::journal_field %>%
           dplyr::filter(.data$openalex_id == journal_id) %>%
           dplyr::pull(.data$journal) %>%
           substr(0, 47),
-        "[:bar] :current/:total (:percent) [Elapsed: :elapsedfull || Remaining: :eta]"
+        "[:bar] :current/:total (:percent) [Elapsed: :elapsedfull || Remaining: :eta]\n"
       ),
       total = length(years),
       complete = "=", # Completion bar character

@@ -59,6 +59,7 @@ clean_journal_names <- function(journal) {
   x <- gsub(":.*", "", x) # removes content after colon
   x <- gsub("/.*", "", x) # removes content after forward slash
   x <- gsub("[(].*", "", x) # removes content in parentheses
+  x <- gsub("[.]*", "", x) # removes periods
   x <- tolower(x)
   x <- tools::toTitleCase(x)
   trimws(x)
