@@ -54,7 +54,7 @@ waffle_country <- function(data,
   }) %>%
     unlist()
 
-  p <- waffle_country_internal(in_map_var)
+  p <- waffle_country_internal(in_map_var, flag_size = flag_size)
 
   if (!is.null(citation)) {
     p <- gg_citation(p, citation, citation_size = citation_size)
@@ -64,7 +64,7 @@ waffle_country <- function(data,
 }
 
 #' @noRd
-waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA) {
+waffle_country_internal <- function(in_map_var, len_x = NA, na_flag = NA, flag_size = flag_size) {
   . <- NULL
   my_prop <- in_map_var %>%
     data.frame(country = .) %>%
