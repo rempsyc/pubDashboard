@@ -57,7 +57,7 @@ scatter_country_year <- function(data,
     dplyr::mutate(Country = factor(.data$Country, levels = top_order))
 
   getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Set2"))
-  colours.country2 <- getPalette(8)
+  colours.country2 <- getPalette(8)[seq(unique(x$Country))]
 
   p <- x %>%
     rempsyc::nice_scatter(
